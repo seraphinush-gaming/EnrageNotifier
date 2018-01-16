@@ -1,6 +1,33 @@
-# EnrageNotifier
-A tera-proxy module that sends you a notice about a boss being enraged and the percentage of its next enrage.  
-  
+# message-enrage
+tera-proxy module to notify enrage information of bosses
+
+## Dependency
+- `Command` module
+
+## Usage
+### `enrage`
+- Toggle on/off
+- Default is on
+### `enrage notice`
+- Toggle notice to screen on/off
+- Default is on
+### `enrage status`
+- Send status of module and notice function
+
+## Info
+- Original author : [TeraProxy](https://github.com/TeraProxy)
+
+## Changelog
+<details>
+
+    1.10
+    - Personalized code aesthetics
+    1.00
+    - Initial fork
+
+</details>
+
+
 ## Usage  
 While in game, open a proxy chat session by typing "/proxy" or "/8" in chat and hitting the space bar.  
 This serves as the script's command interface.  
