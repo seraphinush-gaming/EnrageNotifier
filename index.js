@@ -5,12 +5,12 @@
 // - S_LOAD_TOPO
 // - S_NPC_STATUS
 
-// Version 1.10 r:01
+// Version 1.10 r:02
 
 module.exports = function MessageEnrage(d) {
 
     let enable = true,
-        notice = true,
+        notice = false,
         inHH = false
 
     let boss = new Set(),
