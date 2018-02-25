@@ -1,4 +1,4 @@
-# message-enrage
+# msg-enrage
 tera-proxy module to notify enrage information of bosses
 
 ## Dependency
@@ -8,10 +8,11 @@ tera-proxy module to notify enrage information of bosses
 ### `enrage`
 - Toggle on/off
 - Default is on
-### `enrage notice`
+### Parameters
+#### `n` · `ㅜ` · `notice`
 - Toggle notice to screen on/off
 - Default is on
-### `enrage status`
+#### `s` · `ㄴ` · `status`
 - Send status of module and notice function
 
 ## Info
