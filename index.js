@@ -5,9 +5,9 @@
 // - S_LOAD_TOPO
 // - S_NPC_STATUS
 
-// Version 1.10 r:02
+// Version 1.10 r:03
 
-module.exports = function MessageEnrage(d) {
+module.exports = function MsgEnrage(d) {
 
     let enable = true,
         notice = false,
@@ -106,19 +106,19 @@ module.exports = function MessageEnrage(d) {
                 enable = !enable
                 status()
             // notice
-            } else if (arg === 'notice') {
+            } else if (arg === 'n' || arg === 'ㅜ' || arg === 'notice') {
                 notice = !notice
                 send(`Notice to screen ${notice ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'))
             // status
-            } else if (arg === 'status') status()
+            } else if (arg === 's' || arg === 'ㄴ' || arg === 'status') status()
             else send(`Invalid argument.`.clr('FF0000'))
         })
-        function send(msg) { command.message(`[message-enrage] : ` + [...arguments].join('\n\t - ')) }
+        function send(msg) { command.message(`[msg-enrage] : ` + [...arguments].join('\n\t - ')) }
         function status() { send(
             `Enrage message ${enable ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'),
             `Notice to screen : ${notice ? 'enabled' : 'disabled'}`) 
         }
-    } catch (e) { console.log(`[ERROR] -- message-enrage module --`) }
+    } catch (e) { console.log(`[ERROR] -- msg-enrage module --`) }
     
 }
 
