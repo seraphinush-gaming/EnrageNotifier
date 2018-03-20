@@ -1,23 +1,23 @@
-// OPCODE REQUIRED :
-// - S_BOSS_GAGE_INFO
-// - S_DESPAWN_NPC
-// - S_DUNGEON_EVENT_MESSAGE
-// - S_LOAD_TOPO
-// - S_NPC_STATUS
+// Version 1.11 r:00
 
-// Version 1.10 r:03
+const Command = require('command')
+const config = require('./config.json')
+
+// credit : https://github.com/Some-AV-Popo
+String.prototype.clr = function (hexColor) { return `<font color="#${hexColor}">${this}</font>` }
 
 module.exports = function MsgEnrage(d) {
+    const command = Command(d)
 
-    let enable = true,
-        notice = false,
-        inHH = false
+    let enable = config.enable,
+        notice = config.notice
 
     let boss = new Set(),
         enraged = false,
         hpMax = -1,
         hpCur = -1,
         hpPer = -1,
+        inHH = false,
         nextEnrage = -1,
         timeout = -1,
         timeoutCounter = -1
@@ -97,30 +97,24 @@ module.exports = function MsgEnrage(d) {
     }
 
     // command
-    try {
-        const Command = require('command')
-        const command = Command(d)
-        command.add('enrage', (arg) => {
-            // toggle
-            if (!arg) {
-                enable = !enable
-                status()
-            // notice
-            } else if (arg === 'n' || arg === 'ㅜ' || arg === 'notice') {
-                notice = !notice
-                send(`Notice to screen ${notice ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'))
-            // status
-            } else if (arg === 's' || arg === 'ㄴ' || arg === 'status') status()
-            else send(`Invalid argument.`.clr('FF0000'))
-        })
-        function send(msg) { command.message(`[msg-enrage] : ` + [...arguments].join('\n\t - ')) }
-        function status() { send(
-            `Enrage message ${enable ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}` + `.`.clr('FFFFFF'),
-            `Notice to screen : ${notice ? 'enabled' : 'disabled'}`) 
+    command.add('enrage', (arg) => {
+        // toggle
+        if (!arg) { 
+            enable = !enable
+            send(`${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`)
         }
-    } catch (e) { console.log(`[ERROR] -- msg-enrage module --`) }
-    
-}
+        // notice 
+        else if (arg === 'n' || arg === 'ㅜ') {
+            notice = !notice
+            send(`Notice to screen ${notice ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}`)
+        // status
+        } else if (arg === 's' || arg === 'ㄴ' || arg === 'status') status()
+        else send(`Invalid argument.`.clr('FF0000'))
+    })
+    function send(msg) { command.message(`[msg-enrage] : ` + [...arguments].join('\n\t - '.clr('FFFFFF'))) }
+    function status() { send(
+        `Enrage message : ${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`,
+        `Notice to screen : ${notice ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`) 
+    }
 
-// credit : https://github.com/Some-AV-Popo
-String.prototype.clr = function (hexColor) { return `<font color="#${hexColor}">${this}</font>` }
+}
