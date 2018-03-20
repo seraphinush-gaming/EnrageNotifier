@@ -9,7 +9,7 @@ tera-proxy module to notify enrage information of bosses
 - Toggle on/off
 - Default is on
 ### Parameters
-#### `n` · `ㅜ` · `notice`
+#### `n` · `ㅜ`
 - Toggle notice to screen on/off
 - Default is on
 #### `s` · `ㄴ` · `status`
@@ -21,6 +21,8 @@ tera-proxy module to notify enrage information of bosses
 ## Changelog
 <details>
 
+    1.11
+    - Added auto-update support
     1.10
     - Personalized code aesthetics
     1.00
