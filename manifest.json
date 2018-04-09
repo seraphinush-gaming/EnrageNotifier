@@ -1,17 +1,17 @@
 {
-    "files": {
-        "config.json": {
-            "overwrite": false,
-            "hash": "eac017e1e1820d3caee37c270bd80cd603d4a1457c2b9bd5b74d78c783e4e617"
-        },
-        "index.js": "59a6dfb0078058f71fe0db8996592187e6c5a73f816c9cd465b455970ff4bfb8",
-        "module.json": "46a620ce9609b069cbfa5d0f6833e16e337ccbc72c5f167acfa22c76b5faea17"
-    },
-    "defs": {
-        "S_BOSS_GAGE_INFO": 3,
-        "S_DESPAWN_NPC": 2,
-        "S_DUNGEON_EVENT_MESSAGE": 1,
-        "S_LOAD_TOPO": 3,
-        "S_NPC_STATUS": 1
-    }
+  "files": {
+      "config.json": {
+          "overwrite": false,
+          "hash": "eac017e1e1820d3caee37c270bd80cd603d4a1457c2b9bd5b74d78c783e4e617"
+      },
+      "index.js": "226540a476c6a87748127030c99970f4015bef6f77252960c63e05e7b95d64e4",
+      "module.json": "46a620ce9609b069cbfa5d0f6833e16e337ccbc72c5f167acfa22c76b5faea17"
+  },
+  "defs": {
+      "S_BOSS_GAGE_INFO": 3,
+      "S_DESPAWN_NPC": 3,
+      "S_DUNGEON_EVENT_MESSAGE": 1,
+      "S_LOAD_TOPO": 3,
+      "S_NPC_STATUS": 1
+  }
 }
