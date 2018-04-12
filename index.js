@@ -1,4 +1,4 @@
-// Version 1.11 r:01
+// Version 1.11 r:02
 
 const Command = require('command')
 const config = require('./config.json')
@@ -87,7 +87,7 @@ module.exports = function MsgEnrage(d) {
         let i = 10
         timeoutCounter = setInterval( () => {
             if (enraged && i > 0) {
-                toChat(`Time remaining : ` + `${i}`.clr('FF0000') + ` seconds`.clr('FFFFFF'))
+                send(`Time remaining : ` + `${i}`.clr('FF0000') + ` seconds`.clr('FFFFFF'))
                 i--
             } else {
                 clearInterval(timeoutCounter)
@@ -104,11 +104,11 @@ module.exports = function MsgEnrage(d) {
             send(`${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`)
         }
         // notice 
-        else if (arg === 'n' || arg === 'ㅜ') {
+        else if (arg === 'n' || arg === 'ㅜ' || arg === 'notice') {
             notice = !notice
             send(`Notice to screen ${notice ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}`)
         // status
-        } else if (arg === 's' || arg === 'ㄴ') status()
+        } else if (arg === 's' || arg === 'ㄴ' || arg === 'status') status()
         else send(`Invalid argument.`.clr('FF0000'))
     })
     function send(msg) { command.message(`[msg-enrage] : ` + [...arguments].join('\n\t - '.clr('FFFFFF'))) }
