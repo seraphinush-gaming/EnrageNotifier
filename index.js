@@ -1,4 +1,4 @@
-// Version 1.11 r:02
+// Version 1.11 r:03
 
 const Command = require('command')
 const config = require('./config.json')
@@ -14,22 +14,22 @@ module.exports = function MsgEnrage(d) {
 
     let boss = new Set(),
         enraged = false,
-        hpMax = -1,
-        hpCur = -1,
-        hpPer = -1,
+        hpMax = 0,
+        hpCur = 0,
+        hpPer = 0,
         inHH = false,
-        nextEnrage = -1,
-        timeout = -1,
-        timeoutCounter = -1
+        nextEnrage = 0,
+        timeout = 0,
+        timeoutCounter = 0
 
     // code
     d.hook('S_LOAD_TOPO', (e) => {
         (e.zone === 9950) ? inHH = true : inHH = false
-        if (timeout !== -1) {
+        if (timeout !== 0) {
             clearTimeout(timeout)
             clearTimeout(timeoutCounter)
-            timeout = -1
-            timeoutCounter = -1
+            timeout = 0
+            timeoutCounter = 0
         }
     })
 
@@ -55,8 +55,8 @@ module.exports = function MsgEnrage(d) {
             send(`Next enrage at ` + `${nextEnrage}`.clr('FF0000') + `%`.clr('FFFFFF'))
             clearTimeout(timeout)
             clearTimeout(timeoutCounter)
-            timeout = -1
-            timeoutCounter = -1
+            timeout = 0
+            timeoutCounter = 0
         }
     })
 
@@ -66,8 +66,8 @@ module.exports = function MsgEnrage(d) {
             boss.delete(e.gameId.toString())
             clearTimeout(timeout)
             clearTimeout(timeoutCounter)
-            timeout = -1
-            timeoutCounter = -1
+            timeout = 0
+            timeoutCounter = 0
             enraged = false
         }
     })
