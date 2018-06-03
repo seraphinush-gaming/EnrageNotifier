@@ -1,4 +1,4 @@
-// Version 1.11 r:03
+// Version 1.11 r:04
 
 const Command = require('command')
 const config = require('./config.json')
@@ -74,7 +74,7 @@ module.exports = function MsgEnrage(d) {
 
     // helper
     function toChat(msg) {
-        if (notice) d.toClient('S_DUNGEON_EVENT_MESSAGE', {
+        if (notice) d.send('S_DUNGEON_EVENT_MESSAGE', 1, {
             unk1: 31, // 42 blue shiny text, 31 normal Text
             unk2: 0,
             unk3: 27,
