@@ -1,4 +1,4 @@
-// Version 1.11 r:04
+// Version 1.11 r:05
 
 const Command = require('command')
 const config = require('./config.json')
@@ -23,7 +23,7 @@ module.exports = function MsgEnrage(d) {
         timeoutCounter = 0
 
     // code
-    d.hook('S_LOAD_TOPO', (e) => {
+    d.hook('S_LOAD_TOPO', 3, (e) => {
         (e.zone === 9950) ? inHH = true : inHH = false
         if (timeout !== 0) {
             clearTimeout(timeout)
@@ -33,7 +33,7 @@ module.exports = function MsgEnrage(d) {
         }
     })
 
-    d.hook('S_BOSS_GAGE_INFO', (e) => {
+    d.hook('S_BOSS_GAGE_INFO', 3, (e) => {
         if (!enable || inHH) return
         boss.add(e.id.toString())
         hpMax = e.maxHp
@@ -42,7 +42,7 @@ module.exports = function MsgEnrage(d) {
         nextEnrage = (hpPer > 10) ? (hpPer - 10) : 0
     })
 
-    d.hook('S_NPC_STATUS', (e) => {
+    d.hook('S_NPC_STATUS', 1, (e) => {
         if (!enable || inHH) return
         if (!boss.has(e.creature.toString())) return
         if (e.enraged === 1 && !enraged) {
@@ -60,7 +60,7 @@ module.exports = function MsgEnrage(d) {
         }
     })
 
-    d.hook('S_DESPAWN_NPC', (e) => {
+    d.hook('S_DESPAWN_NPC', 3, (e) => {
         if (!enable || inHH) return
         if (boss.has(e.gameId.toString())) {
             boss.delete(e.gameId.toString())
