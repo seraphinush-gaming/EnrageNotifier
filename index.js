@@ -1,4 +1,4 @@
-// Version 1.11 r:05
+// Version 1.11 r:06
 
 const Command = require('command')
 const config = require('./config.json')
@@ -21,6 +21,22 @@ module.exports = function MsgEnrage(d) {
         nextEnrage = 0,
         timeout = 0,
         timeoutCounter = 0
+
+    // command
+    command.add('enrage', (arg) => {
+        // toggle
+        if (!arg) { 
+            enable = !enable
+            send(`${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`)
+        }
+        // notice 
+        else if (arg === 'n' || arg === 'ㅜ' || arg === 'notice') {
+            notice = !notice
+            send(`Notice to screen ${notice ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}`)
+        // status
+        } else if (arg === 's' || arg === 'ㄴ' || arg === 'status') status()
+        else send(`Invalid argument.`.clr('FF0000'))
+    })
 
     // code
     d.hook('S_LOAD_TOPO', 3, (e) => {
@@ -93,25 +109,11 @@ module.exports = function MsgEnrage(d) {
                 clearInterval(timeoutCounter)
                 timeoutCounter = -1
             }
-        }, 1000)
+        }, 990)
     }
 
-    // command
-    command.add('enrage', (arg) => {
-        // toggle
-        if (!arg) { 
-            enable = !enable
-            send(`${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`)
-        }
-        // notice 
-        else if (arg === 'n' || arg === 'ㅜ' || arg === 'notice') {
-            notice = !notice
-            send(`Notice to screen ${notice ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}`)
-        // status
-        } else if (arg === 's' || arg === 'ㄴ' || arg === 'status') status()
-        else send(`Invalid argument.`.clr('FF0000'))
-    })
     function send(msg) { command.message(`[msg-enrage] : ` + [...arguments].join('\n\t - '.clr('FFFFFF'))) }
+
     function status() { send(
         `Enrage message : ${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`,
         `Notice to screen : ${notice ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`) 

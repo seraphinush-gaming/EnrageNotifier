@@ -23,6 +23,7 @@ tera-proxy module to notify enrage information of bosses
 
 ## Info
 - Original author : [TeraProxy](https://github.com/TeraProxy)
+- **Support seraph via paypal donations, thanks in advance : [paypal](https://www.paypal.me/seraphinush)**
 
 ## Changelog
 <details>
