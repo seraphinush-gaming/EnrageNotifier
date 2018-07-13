@@ -1,21 +1,22 @@
-// Version 1.11 r:06
+// Version 1.12 r:00
 
 const Command = require('command')
-const config = require('./config.json')
+const GameState = require('tera-game-state')
 
-// credit : https://github.com/Some-AV-Popo
-String.prototype.clr = function (hexColor) { return `<font color="#${hexColor}">${this}</font>` }
+const config = require('./config.json')
 
 module.exports = function MsgEnrage(d) {
     const command = Command(d)
+    const game = GameState(d)
 
+    // config
     let enable = config.enable,
         notice = config.notice
 
     let boss = new Set(),
         enraged = false,
-        hpMax = 0,
         hpCur = 0,
+        hpMax = 0,
         hpPer = 0,
         inHH = false,
         nextEnrage = 0,
@@ -23,24 +24,24 @@ module.exports = function MsgEnrage(d) {
         timeoutCounter = 0
 
     // command
-    command.add('enrage', (arg) => {
+    command.add('enrage', (p) => {
         // toggle
-        if (!arg) { 
+        if (!p) { 
             enable = !enable
-            send(`${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`)
+            send(`${enable ? 'Enabled' : 'Disabled'}`)
         }
         // notice 
-        else if (arg === 'n' || arg === 'ㅜ' || arg === 'notice') {
+        else if (p === 'n' || p === 'notice') {
             notice = !notice
-            send(`Notice to screen ${notice ? 'enabled'.clr('56B4E9') : 'disabled'.clr('E69F00')}`)
+            send(`Notice to screen ${notice ? 'enabled': 'disabled'}`)
         // status
-        } else if (arg === 's' || arg === 'ㄴ' || arg === 'status') status()
-        else send(`Invalid argument.`.clr('FF0000'))
+        } else if (p === 's' || p === 'status') status()
+        else send(`Invalid argument.`)
     })
 
     // code
-    d.hook('S_LOAD_TOPO', 3, (e) => {
-        (e.zone === 9950) ? inHH = true : inHH = false
+    d.hook('S_LOAD_TOPO', 'raw', () => {
+        (game.me.zone === 9950) ? inHH = true : inHH = false
         if (timeout !== 0) {
             clearTimeout(timeout)
             clearTimeout(timeoutCounter)
@@ -68,7 +69,7 @@ module.exports = function MsgEnrage(d) {
         } else if (e.enraged === 0 && enraged) {
             if (hpPer === 100) return
             enraged = false
-            send(`Next enrage at ` + `${nextEnrage}`.clr('FF0000') + `%`.clr('FFFFFF'))
+            send(`Next enrage at ` + `${nextEnrage}` + `%`)
             clearTimeout(timeout)
             clearTimeout(timeoutCounter)
             timeout = 0
@@ -103,7 +104,7 @@ module.exports = function MsgEnrage(d) {
         let i = 10
         timeoutCounter = setInterval( () => {
             if (enraged && i > 0) {
-                send(`Time remaining : ` + `${i}`.clr('FF0000') + ` seconds`.clr('FFFFFF'))
+                send(`Seconds remaining : ` + `${i}`)
                 i--
             } else {
                 clearInterval(timeoutCounter)
@@ -112,11 +113,11 @@ module.exports = function MsgEnrage(d) {
         }, 990)
     }
 
-    function send(msg) { command.message(`[msg-enrage] : ` + [...arguments].join('\n\t - '.clr('FFFFFF'))) }
+    function send(msg) { command.message(`[msg-enrage] : ` + [...arguments].join('\n\t - ')) }
 
     function status() { send(
-        `Enrage message : ${enable ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`,
-        `Notice to screen : ${notice ? 'Enabled'.clr('56B4E9') : 'Disabled'.clr('E69F00')}`) 
+        `Enrage message : ${enable ? 'Enabled' : 'Disabled'}`,
+        `Notice to screen : ${notice ? 'Enabled' : 'Disabled'}`) 
     }
 
 }

@@ -3,11 +3,12 @@ tera-proxy module to notify enrage information of bosses
 
 ## Dependency
 - `Command` module
+- `tera-game-state` module
 
 ## Usage
 - __`enrage`__
   - Toggle on/off
-### Parameters
+### Arguments
 - __`n` · `ㅜ` · `notice`__
   - Toggle notice to screen on/off
 - __`s` · `ㄴ` · `status`__
@@ -28,6 +29,9 @@ tera-proxy module to notify enrage information of bosses
 ## Changelog
 <details>
 
+    1.12
+    - Removed font color bloat
+    - Added `tera-game-state` dependency
     1.11
     - Added auto-update support
     - Refactored config file
