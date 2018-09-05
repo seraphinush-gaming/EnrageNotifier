@@ -1,8 +1,9 @@
 {
     "files": {
         "config.json": { "overwrite": false, "hash": "eac017e1e1820d3caee37c270bd80cd603d4a1457c2b9bd5b74d78c783e4e617" },
-        "index.js": "0fb2f84aaa0e464ae86051b6087d31752cea3c6460c52dce6a069c225367ab4f",
-        "module.json": "46a620ce9609b069cbfa5d0f6833e16e337ccbc72c5f167acfa22c76b5faea17"
+        "index.js": "c19edc9cfa4fd61cecf158dac5de2c209d5a393fbd0e29e9b1eb3de747d9faa7",
+        "module.json": "10254d44d19fdb55dcc8739fb9d0fd577a019ae10ab66d8a8adadbebd3bf029e",
+        "README.md": "98bc2ef40928268f2cc36bf17885b0d81129732521db723b11a5b80b803a4f56"
     },
     "defs": {
         "S_BOSS_GAGE_INFO": 3,

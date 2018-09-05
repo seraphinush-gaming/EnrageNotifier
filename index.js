@@ -1,17 +1,12 @@
-// Version 1.12 r:00
+// Version 1.13 r:00
 
-const Command = require('command')
-const GameState = require('tera-game-state')
+const config = require('./config.json');
 
-const config = require('./config.json')
-
-module.exports = function MsgEnrage(d) {
-    const command = Command(d)
-    const game = GameState(d)
+module.exports = function MsgEnrage(m) {
 
     // config
     let enable = config.enable,
-        notice = config.notice
+        notice = config.notice;
 
     let boss = new Set(),
         enraged = false,
@@ -20,104 +15,104 @@ module.exports = function MsgEnrage(d) {
         hpPer = 0,
         inHH = false,
         nextEnrage = 0,
-        timeout = 0,
-        timeoutCounter = 0
+        timeout = null,
+        timeoutCounter = null;
 
     // command
-    command.add('enrage', (p) => {
+    m.command.add('enrage', {
         // toggle
-        if (!p) { 
-            enable = !enable
-            send(`${enable ? 'Enabled' : 'Disabled'}`)
+        $none() {
+            enable = !enable;
+            send(`${enable ? 'Enabled' : 'Disabled'}`);
+        },
+        notice() {
+            notice = !notice;
+            send(`Notice to screen ${notice ? 'enabled': 'disabled'}`);
+        },
+        status() { showStatus(); },
+        $default() {
+            send(`Invalid argument. usage : enrage [notice|status]`)
         }
-        // notice 
-        else if (p === 'n' || p === 'notice') {
-            notice = !notice
-            send(`Notice to screen ${notice ? 'enabled': 'disabled'}`)
-        // status
-        } else if (p === 's' || p === 'status') status()
-        else send(`Invalid argument.`)
-    })
+    });
+
+    // mod.game
+    m.game.on('change_zone', (zone, quick) => {
+        (zone === 9950) ? inHH = true : inHH = false
+        if (timeout !== 0 || timeoutCounter !== 0) { clearTimer(); }
+    });
+
+    m.game.on('leave_game', () => { clearTimer(); });
 
     // code
-    d.hook('S_LOAD_TOPO', 'raw', () => {
-        (game.me.zone === 9950) ? inHH = true : inHH = false
-        if (timeout !== 0) {
-            clearTimeout(timeout)
-            clearTimeout(timeoutCounter)
-            timeout = 0
-            timeoutCounter = 0
-        }
-    })
-
-    d.hook('S_BOSS_GAGE_INFO', 3, (e) => {
+    m.hook('S_BOSS_GAGE_INFO', 3, (e) => {
         if (!enable || inHH) return
-        boss.add(e.id.toString())
-        hpMax = e.maxHp
-        hpCur = e.curHp
-        hpPer = Math.floor((hpCur / hpMax) * 100)
-        nextEnrage = (hpPer > 10) ? (hpPer - 10) : 0
-    })
+        boss.add(e.id.toString());
+        hpMax = e.maxHp;
+        hpCur = e.curHp;
+        hpPer = Math.floor((hpCur / hpMax) * 100);
+        nextEnrage = (hpPer > 10) ? (hpPer - 10) : 0;
+    });
 
-    d.hook('S_NPC_STATUS', 1, (e) => {
+    m.hook('S_NPC_STATUS', 1, (e) => {
         if (!enable || inHH) return
         if (!boss.has(e.creature.toString())) return
         if (e.enraged === 1 && !enraged) {
-            enraged = true
-            toChat(`Boss enraged`)
-            timeout = setTimeout(timeRemaining, 26000)
+            enraged = true;
+            toChat(`Boss enraged`);
+            timeout = setTimeout(timeRemaining, 26000);
         } else if (e.enraged === 0 && enraged) {
             if (hpPer === 100) return
-            enraged = false
-            send(`Next enrage at ` + `${nextEnrage}` + `%`)
-            clearTimeout(timeout)
-            clearTimeout(timeoutCounter)
-            timeout = 0
-            timeoutCounter = 0
+            enraged = false;
+            send(`Next enrage at ` + `${nextEnrage}` + `%`);
+            clearTimer();
         }
-    })
+    });
 
-    d.hook('S_DESPAWN_NPC', 3, (e) => {
+    m.hook('S_DESPAWN_NPC', 3, (e) => {
         if (!enable || inHH) return
         if (boss.has(e.gameId.toString())) {
-            boss.delete(e.gameId.toString())
-            clearTimeout(timeout)
-            clearTimeout(timeoutCounter)
-            timeout = 0
-            timeoutCounter = 0
-            enraged = false
+            boss.delete(e.gameId.toString());
+            clearTimer();
+            enraged = false;
         }
-    })
+    });
 
     // helper
+    function clearTimer() {
+        clearTimeout(timeout);
+        timeout = null;
+        clearTimeout(timeoutCounter);
+        timeoutCounter = null;
+    }
+
     function toChat(msg) {
-        if (notice) d.send('S_DUNGEON_EVENT_MESSAGE', 1, {
+        if (notice) m.send('S_DUNGEON_EVENT_MESSAGE', 1, {
             unk1: 31, // 42 blue shiny text, 31 normal Text
             unk2: 0,
             unk3: 27,
             message: msg
-        })
-        else send(msg)
+        });
+        else send(msg);
     }
 
     function timeRemaining() {
-        let i = 10
+        let i = 10;
         timeoutCounter = setInterval( () => {
             if (enraged && i > 0) {
-                send(`Seconds remaining : ` + `${i}`)
-                i--
+                send(`Seconds remaining : ${i}`);
+                i--;
             } else {
-                clearInterval(timeoutCounter)
-                timeoutCounter = -1
+                clearInterval(timeoutCounter);
+                timeoutCounter = null;
             }
-        }, 990)
+        }, 990);
     }
 
-    function send(msg) { command.message(`[msg-enrage] : ` + [...arguments].join('\n\t - ')) }
+    function send(msg) { m.command.message(`: ` + [...arguments].join('\n\t - ')); }
 
-    function status() { send(
+    function showStatus() { send(
         `Enrage message : ${enable ? 'Enabled' : 'Disabled'}`,
-        `Notice to screen : ${notice ? 'Enabled' : 'Disabled'}`) 
+        `Notice to screen : ${notice ? 'Enabled' : 'Disabled'}`) ;
     }
 
 }
