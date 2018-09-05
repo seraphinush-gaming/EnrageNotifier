@@ -1,4 +1,4 @@
-// Version 1.13 r:00
+// Version 1.13 r:01
 
 const config = require('./config.json');
 
@@ -36,12 +36,12 @@ module.exports = function MsgEnrage(m) {
     });
 
     // mod.game
-    m.game.on('change_zone', (zone, quick) => {
+    m.game.me.on('change_zone', (zone, quick) => {
         (zone === 9950) ? inHH = true : inHH = false
         if (timeout !== 0 || timeoutCounter !== 0) { clearTimer(); }
     });
 
-    m.game.on('leave_game', () => { clearTimer(); });
+    m.game.me.on('leave_game', () => { clearTimer(); });
 
     // code
     m.hook('S_BOSS_GAGE_INFO', 3, (e) => {
