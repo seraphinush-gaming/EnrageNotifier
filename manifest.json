@@ -1,7 +1,7 @@
 {
     "files": {
         "config.json": { "overwrite": false, "hash": "eac017e1e1820d3caee37c270bd80cd603d4a1457c2b9bd5b74d78c783e4e617" },
-        "index.js": "0b75bde44dd10b9ae1af0191372bc347a936e0e0ded41cede6c9190f2c98c65c",
+        "index.js": "2d5fd4c2535b21aec9401f811a9f65143fceea3f6e35187f33d572f3bf5bb6db",
         "module.json": "10254d44d19fdb55dcc8739fb9d0fd577a019ae10ab66d8a8adadbebd3bf029e",
         "README.md": "98bc2ef40928268f2cc36bf17885b0d81129732521db723b11a5b80b803a4f56"
     },

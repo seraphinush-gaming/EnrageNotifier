@@ -1,4 +1,4 @@
-// Version 1.13 r:01
+// Version 1.13 r:02
 
 const config = require('./config.json');
 
@@ -41,7 +41,7 @@ module.exports = function MsgEnrage(m) {
         if (timeout !== 0 || timeoutCounter !== 0) { clearTimer(); }
     });
 
-    m.game.me.on('leave_game', () => { clearTimer(); });
+    m.game.on('leave_game', () => { clearTimer(); });
 
     // code
     m.hook('S_BOSS_GAGE_INFO', 3, (e) => {
