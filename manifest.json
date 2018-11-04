@@ -1,14 +1,17 @@
 {
-    "files": {
-        "config.json": { "overwrite": false, "hash": "eac017e1e1820d3caee37c270bd80cd603d4a1457c2b9bd5b74d78c783e4e617" },
-        "index.js": "2d5fd4c2535b21aec9401f811a9f65143fceea3f6e35187f33d572f3bf5bb6db",
-        "module.json": "10254d44d19fdb55dcc8739fb9d0fd577a019ae10ab66d8a8adadbebd3bf029e",
-        "README.md": "98bc2ef40928268f2cc36bf17885b0d81129732521db723b11a5b80b803a4f56"
-    },
-    "defs": {
-        "S_BOSS_GAGE_INFO": 3,
-        "S_DESPAWN_NPC": 3,
-        "S_DUNGEON_EVENT_MESSAGE": 1,
-        "S_NPC_STATUS": 1
-    }
+	"files": {
+		"README.md": "69c8d5cc9f19f9688b4fbee37d6bf6cb7da84ed277787427a1b2e176dcca4540",
+		"config.json": {
+			"overwrite": false,
+			"hash": "7b6c10ba131774f8a0c526ac910695676428e7beca6b43091ef653aeb6699599"
+		},
+		"index.js": "5023c1fa5ea3ae6c954bfef81c8cc268df6a5d3e6e480d4622469d1011341b9c",
+		"module.json": "b9935b91f9d3002b900dd43fa6e4c01945649eb216c9525a721ce7eb1df6f405"
+	},
+	"defs": {
+		"S_BOSS_GAGE_INFO": 3,
+		"S_DESPAWN_NPC": 3,
+		"S_DUNGEON_EVENT_MESSAGE": 2,
+		"S_NPC_STATUS": 1
+	}
 }

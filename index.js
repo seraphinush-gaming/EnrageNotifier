@@ -1,4 +1,5 @@
-// Version 1.13 r:02
+// Version 1.13 r:04
+'use strict';
 
 const config = require('./config.json');
 
@@ -23,20 +24,20 @@ module.exports = function MsgEnrage(m) {
         // toggle
         $none() {
             enable = !enable;
-            send(`${enable ? 'Enabled' : 'Disabled'}`);
+            send(`${enable ? 'En' : 'Dis'}abled`);
         },
         notice() {
             notice = !notice;
-            send(`Notice to screen ${notice ? 'enabled': 'disabled'}`);
+            send(`Notice to screen ${notice ? 'en': 'dis'}abled`);
         },
         status() { showStatus(); },
         $default() {
-            send(`Invalid argument. usage : enrage [notice|status]`)
+            send(`Invalid argument. usage : enrage [notice|status]`);
         }
     });
 
     // mod.game
-    m.game.me.on('change_zone', (zone, quick) => {
+    m.game.me.on('change_zone', (zone) => {
         (zone === 9950) ? inHH = true : inHH = false
         if (timeout !== 0 || timeoutCounter !== 0) { clearTimer(); }
     });
@@ -45,23 +46,23 @@ module.exports = function MsgEnrage(m) {
 
     // code
     m.hook('S_BOSS_GAGE_INFO', 3, (e) => {
-        if (!enable || inHH) return
+        if (!enable || inHH) return;
         boss.add(e.id.toString());
-        hpMax = e.maxHp;
-        hpCur = e.curHp;
+        hpMax = Number(e.maxHp);
+        hpCur = Number(e.curHp);
         hpPer = Math.floor((hpCur / hpMax) * 100);
         nextEnrage = (hpPer > 10) ? (hpPer - 10) : 0;
     });
 
     m.hook('S_NPC_STATUS', 1, (e) => {
-        if (!enable || inHH) return
-        if (!boss.has(e.creature.toString())) return
+        if (!enable || inHH) return;
+        if (!boss.has(e.creature.toString())) return;
         if (e.enraged === 1 && !enraged) {
             enraged = true;
             toChat(`Boss enraged`);
             timeout = setTimeout(timeRemaining, 26000);
         } else if (e.enraged === 0 && enraged) {
-            if (hpPer === 100) return
+            if (hpPer === 100) return;
             enraged = false;
             send(`Next enrage at ` + `${nextEnrage}` + `%`);
             clearTimer();
@@ -69,7 +70,7 @@ module.exports = function MsgEnrage(m) {
     });
 
     m.hook('S_DESPAWN_NPC', 3, (e) => {
-        if (!enable || inHH) return
+        if (!enable || inHH) return;
         if (boss.has(e.gameId.toString())) {
             boss.delete(e.gameId.toString());
             clearTimer();
@@ -86,10 +87,10 @@ module.exports = function MsgEnrage(m) {
     }
 
     function toChat(msg) {
-        if (notice) m.send('S_DUNGEON_EVENT_MESSAGE', 1, {
-            unk1: 31, // 42 blue shiny text, 31 normal Text
-            unk2: 0,
-            unk3: 27,
+        if (notice) m.send('S_DUNGEON_EVENT_MESSAGE', 2, {
+            type: 31, // 42 blue shiny text, 31 normal Text
+            chat: false,
+            channel: 27,
             message: msg
         });
         else send(msg);
@@ -97,7 +98,7 @@ module.exports = function MsgEnrage(m) {
 
     function timeRemaining() {
         let i = 10;
-        timeoutCounter = setInterval( () => {
+        timeoutCounter = setInterval(() => {
             if (enraged && i > 0) {
                 send(`Seconds remaining : ${i}`);
                 i--;
@@ -111,8 +112,8 @@ module.exports = function MsgEnrage(m) {
     function send(msg) { m.command.message(`: ` + [...arguments].join('\n\t - ')); }
 
     function showStatus() { send(
-        `Enrage message : ${enable ? 'Enabled' : 'Disabled'}`,
-        `Notice to screen : ${notice ? 'Enabled' : 'Disabled'}`) ;
+        `Enrage message : ${enable ? 'En' : 'Dis'}abled`,
+        `Notice to screen : ${notice ? 'En' : 'Dis'}abled`);
     }
 
 }
