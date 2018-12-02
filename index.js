@@ -1,9 +1,10 @@
-// Version 1.13 r:04
+// Version 1.13 r:05
 'use strict';
 
 const config = require('./config.json');
 
-module.exports = function MsgEnrage(m) {
+module.exports = function MsgEnrage(mod) {
+    const cmd = mod.command || mod.require.command;
 
     // config
     let enable = config.enable,
@@ -20,57 +21,65 @@ module.exports = function MsgEnrage(m) {
         timeoutCounter = null;
 
     // command
-    m.command.add('enrage', {
+    cmd.add('enrage', {
         // toggle
-        $none() {
+        '$none': () => {
             enable = !enable;
             send(`${enable ? 'En' : 'Dis'}abled`);
         },
-        notice() {
+        'notice': () => {
             notice = !notice;
-            send(`Notice to screen ${notice ? 'en': 'dis'}abled`);
+            send(`Notice to screen ${notice ? 'en' : 'dis'}abled`);
         },
-        status() { showStatus(); },
-        $default() {
+        'status': () => {
+            showStatus();
+        },
+        '$default': () => {
             send(`Invalid argument. usage : enrage [notice|status]`);
         }
     });
 
     // mod.game
-    m.game.me.on('change_zone', (zone) => {
-        (zone === 9950) ? inHH = true : inHH = false
-        if (timeout !== 0 || timeoutCounter !== 0) { clearTimer(); }
+    mod.game.me.on('change_zone', (zone) => {
+        inHH = zone === 9950
+        if (timeout !== 0 || timeoutCounter !== 0) {
+            clearTimer();
+        }
     });
 
-    m.game.on('leave_game', () => { clearTimer(); });
+    mod.game.on('leave_game', () => { clearTimer(); });
 
     // code
-    m.hook('S_BOSS_GAGE_INFO', 3, (e) => {
+    mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
         if (!enable || inHH) return;
         boss.add(e.id.toString());
         hpMax = Number(e.maxHp);
         hpCur = Number(e.curHp);
-        hpPer = Math.floor((hpCur / hpMax) * 100);
+        hpPer = Math.round((hpCur / hpMax) * 100) / 100;
         nextEnrage = (hpPer > 10) ? (hpPer - 10) : 0;
     });
 
-    m.hook('S_NPC_STATUS', 1, (e) => {
-        if (!enable || inHH) return;
-        if (!boss.has(e.creature.toString())) return;
+    mod.hook('S_NPC_STATUS', 1, (e) => {
+        if (!enable || inHH)
+            return;
+        if (!boss.has(e.creature.toString()))
+            return;
         if (e.enraged === 1 && !enraged) {
             enraged = true;
             toChat(`Boss enraged`);
             timeout = setTimeout(timeRemaining, 26000);
         } else if (e.enraged === 0 && enraged) {
-            if (hpPer === 100) return;
+            if (hpPer === 100)
+                return;
             enraged = false;
             send(`Next enrage at ` + `${nextEnrage}` + `%`);
             clearTimer();
         }
     });
 
-    m.hook('S_DESPAWN_NPC', 3, (e) => {
-        if (!enable || inHH) return;
+    mod.hook('S_DESPAWN_NPC', 3, (e) => {
+        if (!enable || inHH)
+            return;
         if (boss.has(e.gameId.toString())) {
             boss.delete(e.gameId.toString());
             clearTimer();
@@ -87,13 +96,15 @@ module.exports = function MsgEnrage(m) {
     }
 
     function toChat(msg) {
-        if (notice) m.send('S_DUNGEON_EVENT_MESSAGE', 2, {
+        if (notice) mod.send('S_DUNGEON_EVENT_MESSAGE', 2, {
             type: 31, // 42 blue shiny text, 31 normal Text
             chat: false,
             channel: 27,
             message: msg
         });
-        else send(msg);
+        else {
+            send(msg);
+        }
     }
 
     function timeRemaining() {
@@ -109,11 +120,13 @@ module.exports = function MsgEnrage(m) {
         }, 990);
     }
 
-    function send(msg) { m.command.message(`: ` + [...arguments].join('\n\t - ')); }
+    function send(msg) { cmd.message(`: ` + [...arguments].join('\n\t - ')); }
 
-    function showStatus() { send(
-        `Enrage message : ${enable ? 'En' : 'Dis'}abled`,
-        `Notice to screen : ${notice ? 'En' : 'Dis'}abled`);
+    function showStatus() {
+        send(
+            `Enrage message : ${enable ? 'En' : 'Dis'}abled`,
+            `Notice to screen : ${notice ? 'En' : 'Dis'}abled`
+        );
     }
 
 }

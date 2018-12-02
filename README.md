@@ -2,7 +2,7 @@
 tera-proxy module to notify enrage information of bosses
 
 ## Auto-update guide
-- Create a folder called `msg-enrage` in `tera-proxy/bin/node_modules` and download [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) (right-click save link as...) into the folder
+- Create a folder called `msg-enrage` in `tera-proxy/bin/node_modules` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) << (right-click save link as...) into the folder
 
 ## Dependency
 - `command` module
