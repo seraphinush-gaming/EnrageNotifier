@@ -1,4 +1,4 @@
-// Version 1.13 r:05
+// Version 1.13 r:06
 'use strict';
 
 const config = require('./config.json');
@@ -12,11 +12,13 @@ module.exports = function MsgEnrage(mod) {
 
     let boss = new Set(),
         enraged = false,
+        enrageDuration = 0,
         hpCur = 0,
         hpMax = 0,
         hpPer = 0,
         inHH = false,
         nextEnrage = 0,
+        nextEnragePer = 0,
         timeout = null,
         timeoutCounter = null;
 
@@ -41,7 +43,15 @@ module.exports = function MsgEnrage(mod) {
 
     // mod.game
     mod.game.me.on('change_zone', (zone) => {
-        inHH = zone === 9950
+        inHH = zone === 9950;
+        if (zone === 9126) {
+            enrageDuration = 0;
+            nextEnragePer = 5;
+        }
+        else {
+            enrageDuration = 27;
+            nextEnragePer = 10;
+        }
         if (timeout !== 0 || timeoutCounter !== 0) {
             clearTimer();
         }
@@ -55,8 +65,8 @@ module.exports = function MsgEnrage(mod) {
         boss.add(e.id.toString());
         hpMax = Number(e.maxHp);
         hpCur = Number(e.curHp);
-        hpPer = Math.round((hpCur / hpMax) * 100) / 100;
-        nextEnrage = (hpPer > 10) ? (hpPer - 10) : 0;
+        hpPer = Math.round((hpCur / hpMax) * 10000) / 100;
+        nextEnrage = (hpPer > nextEnragePer) ? (hpPer - nextEnragePer) : 0;
     });
 
     mod.hook('S_NPC_STATUS', 1, (e) => {
@@ -67,7 +77,7 @@ module.exports = function MsgEnrage(mod) {
         if (e.enraged === 1 && !enraged) {
             enraged = true;
             toChat(`Boss enraged`);
-            timeout = setTimeout(timeRemaining, 26000);
+            timeout = setTimeout(timeRemaining, enrageDuration * 1000);
         } else if (e.enraged === 0 && enraged) {
             if (hpPer === 100)
                 return;
@@ -108,7 +118,7 @@ module.exports = function MsgEnrage(mod) {
     }
 
     function timeRemaining() {
-        let i = 10;
+        let i = 9;
         timeoutCounter = setInterval(() => {
             if (enraged && i > 0) {
                 send(`Seconds remaining : ${i}`);
