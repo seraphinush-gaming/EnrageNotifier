@@ -1,12 +1,12 @@
+> [![paypal](https://img.shields.io/badge/paypal-donate-333333.svg?colorA=253B80&colorB=333333)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7QQJZV9L5P2J&source=url) [![paypal.me](https://img.shields.io/badge/paypal.me-donate-333333.svg?colorA=169BD7&colorB=333333)](https://www.paypal.me/seraphinush) 
+>
+> Support seraph via paypal donations, thanks in advance !
+
 # msg-enrage
 tera-proxy module to notify enrage information of bosses
 
 ## Auto-update guide
-- Create a folder called `msg-enrage` in `tera-proxy/bin/node_modules` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) << (right-click save link as...) into the folder
-
-## Dependency
-- `command` module
-- `tera-game-state` module
+- Create a folder called `msg-enrage` in `tera-proxy/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) << (right-click this link and save as..) into the folder
 
 ## Usage
 - __`enrage`__
@@ -27,11 +27,12 @@ tera-proxy module to notify enrage information of bosses
 
 ## Info
 - Original author : [TeraProxy](https://github.com/TeraProxy)
-- **Support seraph via paypal donations, thanks in advance : [paypal](https://www.paypal.me/seraphinush)**
 
 ## Changelog
 <details>
 
+    1.14
+    - Updated for caali-proxy-nextgen
     1.13
     - Removed `command` require()
     - Removed `tera-game-state` require()

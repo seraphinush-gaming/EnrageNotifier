@@ -1,5 +1,8 @@
 {
     "disableAutoUpdate": false,
-    "options": { "niceName": "msg-enrage" },
+    "name": "msg-enrage",
+    "author": "seraphinush",
+    "description": "tera-proxy module to notify enrage information of bosses",
+    "version": "1.14.00",
     "servers": ["https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/"]
 }
