@@ -1,4 +1,3 @@
-// Version 1.13 r:06
 'use strict';
 
 const config = require('./config.json');
@@ -57,11 +56,14 @@ module.exports = function MsgEnrage(mod) {
         }
     });
 
-    mod.game.on('leave_game', () => { clearTimer(); });
+    mod.game.on('leave_game', () => {
+        clearTimer();
+    });
 
     // code
     mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
-        if (!enable || inHH) return;
+        if (!enable || inHH)
+            return;
         boss.add(e.id.toString());
         hpMax = Number(e.maxHp);
         hpCur = Number(e.curHp);
@@ -82,6 +84,9 @@ module.exports = function MsgEnrage(mod) {
             if (hpPer === 100)
                 return;
             enraged = false;
+            nextEnrage.toString();
+            if (nextEnrage.length > 5)
+                nextEnrage.slice(0,5);
             send(`Next enrage at ` + `${nextEnrage}` + `%`);
             clearTimer();
         }
@@ -130,7 +135,7 @@ module.exports = function MsgEnrage(mod) {
         }, 990);
     }
 
-    function send(msg) { cmd.message(`: ` + [...arguments].join('\n\t - ')); }
+    function send(msg) { cmd.message(': ' + [...arguments].join('\n\t - ')); }
 
     function showStatus() {
         send(
