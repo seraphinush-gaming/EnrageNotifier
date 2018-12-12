@@ -84,7 +84,7 @@ module.exports = function MsgEnrage(mod) {
             if (hpPer === 100)
                 return;
             enraged = false;
-            nextEnrage.toString();
+            nextEnrage = nextEnrage.toString();
             if (nextEnrage.length > 5)
                 nextEnrage.slice(0,5);
             send(`Next enrage at ` + `${nextEnrage}` + `%`);
