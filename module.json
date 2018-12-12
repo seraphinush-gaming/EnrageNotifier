@@ -1,9 +1,9 @@
 {
     "disableAutoUpdate": false,
     "name": "msg-enrage",
-    "author": "seraphinush",
+    "author": "seraphinush | TeraProxy",
     "description": "tera-proxy module to notify enrage information of bosses",
-    "version": "1.14.01",
+    "version": "1.14.02",
     "options": {
         "reloadable": true
     },
