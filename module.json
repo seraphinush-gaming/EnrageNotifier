@@ -3,7 +3,7 @@
     "name": "msg-enrage",
     "author": "seraphinush | TeraProxy",
     "description": "tera-proxy module to notify enrage information of bosses",
-    "version": "1.14.02",
+    "version": "1.14.03",
     "options": {
         "reloadable": true
     },

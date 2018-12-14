@@ -87,7 +87,7 @@ module.exports = function MsgEnrage(mod) {
             nextEnrage = nextEnrage.toString();
             if (nextEnrage.length > 5)
                 nextEnrage.slice(0,5);
-            send(`Next enrage at ` + `${nextEnrage}` + `%`);
+            send(`Next enrage at ` + `${nextEnrage}` + `%.`);
             clearTimer();
         }
     });
@@ -135,13 +135,13 @@ module.exports = function MsgEnrage(mod) {
         }, 990);
     }
 
-    function send(msg) { cmd.message(': ' + [...arguments].join('\n\t - ')); }
-
     function showStatus() {
         send(
             `Enrage message : ${enable ? 'En' : 'Dis'}abled`,
             `Notice to screen : ${notice ? 'En' : 'Dis'}abled`
         );
     }
+
+    function send(msg) { cmd.message(': ' + [...arguments].join('\n\t - ')); }
 
 }
