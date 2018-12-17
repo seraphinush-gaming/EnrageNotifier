@@ -15,7 +15,7 @@ module.exports = function MsgEnrage(mod) {
         hpCur = 0,
         hpMax = 0,
         hpPer = 0,
-        inHH = false,
+        inHh = false,
         nextEnrage = 0,
         nextEnragePer = 0,
         timeout = null,
@@ -32,17 +32,13 @@ module.exports = function MsgEnrage(mod) {
             notice = !notice;
             send(`Notice to screen ${notice ? 'en' : 'dis'}abled`);
         },
-        'status': () => {
-            showStatus();
-        },
-        '$default': () => {
-            send(`Invalid argument. usage : enrage [notice|status]`);
-        }
+        'status': () => status(),
+        '$default': () => send(`Invalid argument. usage : enrage [notice|status]`)
     });
 
     // mod.game
     mod.game.me.on('change_zone', (zone) => {
-        inHH = zone === 9950;
+        inHh = zone === 9950;
         if (zone === 9126) {
             enrageDuration = 0;
             nextEnragePer = 5;
@@ -56,23 +52,21 @@ module.exports = function MsgEnrage(mod) {
         }
     });
 
-    mod.game.on('leave_game', () => {
-        clearTimer();
-    });
+    mod.game.on('leave_game', () => clearTimer() );
 
     // code
     mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
-        if (!enable || inHH)
+        if (!enable || inHh)
             return;
         boss.add(e.id.toString());
-        hpMax = Number(e.maxHp);
         hpCur = Number(e.curHp);
+        hpMax = Number(e.maxHp);
         hpPer = Math.round((hpCur / hpMax) * 10000) / 100;
         nextEnrage = (hpPer > nextEnragePer) ? (hpPer - nextEnragePer) : 0;
     });
 
     mod.hook('S_NPC_STATUS', 1, (e) => {
-        if (!enable || inHH)
+        if (!enable || inHh)
             return;
         if (!boss.has(e.creature.toString()))
             return;
@@ -86,40 +80,31 @@ module.exports = function MsgEnrage(mod) {
             enraged = false;
             nextEnrage = nextEnrage.toString();
             if (nextEnrage.length > 5)
-                nextEnrage.slice(0,5);
+                nextEnrage.slice(0, 5);
             send(`Next enrage at ` + `${nextEnrage}` + `%.`);
             clearTimer();
         }
     });
 
     mod.hook('S_DESPAWN_NPC', 3, (e) => {
-        if (!enable || inHH)
+        if (!enable || inHh)
             return;
         if (boss.has(e.gameId.toString())) {
             boss.delete(e.gameId.toString());
             clearTimer();
             enraged = false;
+            hpCur = 0;
+            hpMax = 0;
+            hpPer = 0;
         }
     });
 
     // helper
     function clearTimer() {
         clearTimeout(timeout);
-        timeout = null;
         clearTimeout(timeoutCounter);
+        timeout = null;
         timeoutCounter = null;
-    }
-
-    function toChat(msg) {
-        if (notice) mod.send('S_DUNGEON_EVENT_MESSAGE', 2, {
-            type: 31, // 42 blue shiny text, 31 normal Text
-            chat: false,
-            channel: 27,
-            message: msg
-        });
-        else {
-            send(msg);
-        }
     }
 
     function timeRemaining() {
@@ -135,7 +120,19 @@ module.exports = function MsgEnrage(mod) {
         }, 990);
     }
 
-    function showStatus() {
+    function toChat(msg) {
+        if (notice)
+            mod.send('S_DUNGEON_EVENT_MESSAGE', 2, {
+                type: 31, // 42 blue shiny text, 31 normal Text
+                chat: false,
+                channel: 27,
+                message: msg
+            });
+        else
+            send(msg);
+    }
+
+    function status() {
         send(
             `Enrage message : ${enable ? 'En' : 'Dis'}abled`,
             `Notice to screen : ${notice ? 'En' : 'Dis'}abled`
@@ -143,5 +140,32 @@ module.exports = function MsgEnrage(mod) {
     }
 
     function send(msg) { cmd.message(': ' + [...arguments].join('\n\t - ')); }
+
+    // reload
+    this.saveState = () => {
+        let state = {
+            enable: enable,
+            notice: notice,
+            boss: boss,
+            enrageDuration: enrageDuration,
+            inHh: inHh,
+            nextEnragePer: nextEnragePer
+        };
+        return state;
+    }
+
+    this.loadState = (state) => {
+        enable = state.enable;
+        enable = state.notice;
+        boss = state.boss;
+        enrageDuration = state.enrageDuration;
+        inHh = state.inHh;
+        nextEnragePer = state.nextEnragePer;
+    }
+
+    this.destructor = () => {
+        clearTimer();
+        cmd.remove('enrage');
+    }
 
 }
