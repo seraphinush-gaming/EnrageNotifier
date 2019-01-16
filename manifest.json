@@ -5,8 +5,8 @@
 			"overwrite": false,
 			"hash": "7b6c10ba131774f8a0c526ac910695676428e7beca6b43091ef653aeb6699599"
 		},
-		"index.js": "a68b260e7506c0517e72652ae21457d79ff63129cb6a05c6ae00090d2020865e",
-		"module.json": "a1cf0be028c3c2c7443ed1aeb9af62343e2a3fd7086c46059e51c5eb0e57f9b1"
+		"index.js": "7eb1445517e7724f18cdb1235765a5c38fa8f948c86bd754b26d7fb759f015c0",
+		"module.json": "eca4cca757b933c19c90269f6dfe0efb9f3756ee422c67da25e4a05dc3578453"
 	},
 	"defs": {
 		"S_BOSS_GAGE_INFO": 3,
