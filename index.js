@@ -64,6 +64,7 @@ module.exports = function MsgEnrage(mod) {
         if (e.enraged === 1 && !enraged) {
             enraged = true;
             enrageDuration = e.remainingEnrageTime - 10000;
+            (enrageDuration < 0) ? 0 : enrageDuration;
             toChat(`Boss enraged`);
             timeout = setTimeout(timeRemaining, enrageDuration);
         } else if (e.enraged === 0 && enraged) {
