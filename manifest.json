@@ -5,13 +5,13 @@
 			"overwrite": false,
 			"hash": "7b6c10ba131774f8a0c526ac910695676428e7beca6b43091ef653aeb6699599"
 		},
-		"index.js": "32f182e7e7dbf71f8fadfd758a8761d67ea79623a2087b2aeb9de071d4b650f8",
-		"module.json": "01438f280bf41325c40c78369a6ea6540ed47469d14020f9a59252b12f061d6d"
+		"index.js": "88d8436c0351069c7f5588007c920ee886a5fe7cf089bc2a119e521d9ec26284",
+		"module.json": "5ffa61b6e970ad11aca786545dbcea7ad83883a527ae55a5da118c103c60f7ed"
 	},
 	"defs": {
 		"S_BOSS_GAGE_INFO": 3,
 		"S_DESPAWN_NPC": 3,
 		"S_DUNGEON_EVENT_MESSAGE": 2,
-		"S_NPC_STATUS": 1
+		"S_NPC_STATUS": 2
 	}
 }

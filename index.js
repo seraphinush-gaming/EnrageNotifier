@@ -39,17 +39,8 @@ module.exports = function MsgEnrage(mod) {
     // mod.game
     mod.game.me.on('change_zone', (zone) => {
         inHh = zone === 9950;
-        if (zone === 9126) {
-            enrageDuration = 0;
-            nextEnragePer = 5;
-        }
-        else {
-            enrageDuration = 27;
-            nextEnragePer = 10;
-        }
-        if (timeout !== 0 || timeoutCounter !== 0) {
+        if (timeout !== 0 || timeoutCounter !== 0)
             clearTimer();
-        }
     });
 
     mod.game.on('leave_game', () => clearTimer() );
@@ -65,15 +56,16 @@ module.exports = function MsgEnrage(mod) {
         nextEnrage = (hpPer > nextEnragePer) ? (hpPer - nextEnragePer) : 0;
     });
 
-    mod.hook('S_NPC_STATUS', 1, (e) => {
+    mod.hook('S_NPC_STATUS', 2, (e) => {
         if (!enable || inHh)
             return;
-        if (!boss.has(e.creature.toString()))
+        if (!boss.has(e.gameId.toString()))
             return;
         if (e.enraged === 1 && !enraged) {
             enraged = true;
+            enrageDuration = e.remainingEnrageTime - 10000;
             toChat(`Boss enraged`);
-            timeout = setTimeout(timeRemaining, enrageDuration * 1000);
+            timeout = setTimeout(timeRemaining, enrageDuration);
         } else if (e.enraged === 0 && enraged) {
             if (hpPer === 100)
                 return;
