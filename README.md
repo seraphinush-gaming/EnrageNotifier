@@ -5,7 +5,7 @@ Support seraph via paypal donations, thanks in advance !
 ```
 
 ## Auto-update guide
-- Create a folder called `msg-enrage` in `tera-proxy/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) << (right-click this link and save as..) into the folder
+- Create a folder called `msg-enrage` in `tera-proxy/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) << (right-click this link and save link as..) into the folder
 
 ## Usage
 - __`enrage`__
@@ -30,12 +30,14 @@ Support seraph via paypal donations, thanks in advance !
 ## Changelog
 <details>
 
+    1.16
+    - Removed `tera-game-state` usage
     1.15
     - Added hot-reload support
     1.14
     - Updated for caali-proxy-nextgen
     1.13
-    - Removed `command` require()
+    - Removed `Command` require()
     - Removed `tera-game-state` require()
     - Updated to `mod.command`
     - Updated to `mod.game`

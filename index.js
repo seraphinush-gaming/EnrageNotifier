@@ -17,7 +17,7 @@ module.exports = function MsgEnrage(mod) {
         hpPer = 0,
         inHh = false,
         nextEnrage = 0,
-        nextEnragePer = 0,
+        nextEnragePer = 10,
         timeout = null,
         timeoutCounter = null;
 
@@ -36,14 +36,12 @@ module.exports = function MsgEnrage(mod) {
         '$default': () => send(`Invalid argument. usage : enrage [notice|status]`)
     });
 
-    // mod.game
-    mod.game.me.on('change_zone', (zone) => {
-        inHh = zone === 9950;
+    // game state
+    mod.hook('S_LOAD_TOPO', 3, { order: -10 }, (e) => {
+        inHh = e.zone === 9950;
         if (timeout !== 0 || timeoutCounter !== 0)
             clearTimer();
     });
-
-    mod.game.on('leave_game', () => clearTimer() );
 
     // code
     mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
