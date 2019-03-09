@@ -3,7 +3,7 @@
 const config = require('./config.json');
 
 module.exports = function MsgEnrage(mod) {
-    const cmd = mod.command || mod.require.command;
+    const cmd = mod.command;
 
     // config
     let enable = config.enable,
@@ -32,7 +32,9 @@ module.exports = function MsgEnrage(mod) {
             notice = !notice;
             send(`Notice to screen ${notice ? 'en' : 'dis'}abled`);
         },
-        'status': () => status(),
+        'status': () => {
+            status();
+        },
         '$default': () => send(`Invalid argument. usage : enrage [notice|status]`)
     });
 
