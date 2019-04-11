@@ -3,10 +3,10 @@
 		"README.md": "2d9becb6a5c76a7f5ef9a03d6a7fae46a2b3ec941fdbe624b2e097d0e7f63ad5",
 		"config.json": {
 			"overwrite": false,
-			"hash": "7b6c10ba131774f8a0c526ac910695676428e7beca6b43091ef653aeb6699599"
+			"hash": "e96c8a96438ac3649bb3e1fd29e52053644d5393f7010bd83040c72a0f2349ff"
 		},
-		"index.js": "b486c038575858e8479fec8fb0d10a3aff761dafd908925b8745f52aaf7340ce",
-		"module.json": "3e8a4400104072cd3ba60da913795452fd7f2f716f62fe3e4ab8f0f5ca63d4c8"
+		"index.js": "37adb494bf6a3155b689212e9b8feb69c5461e6050950c62cc47b457b633db3e",
+		"module.json": "a91f511a405d3392329a233e3e44ced65ec7dfba7f6f7f75058fb746098583df"
 	},
 	"defs": {
 		"S_BOSS_GAGE_INFO": 3,

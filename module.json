@@ -1,13 +1,15 @@
 {
-    "author": "seraphinush | TeraProxy",
-    "description": "tera-proxy module to notify enrage information of bosses",
-    "disableAutoUpdate": false,
-    "donationUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7QQJZV9L5P2J&source=url",
-    "name": "msg-enrage",
-    "options": {
-        "reloadable": true
-    },
-    "servers": ["https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/"],
-    "supportUrl": "https://github.com/seraphinush-gaming/msg-enrage/blob/master/README.md",
-    "version": "1.16.01"
+  "author": "seraphinush | TeraProxy",
+  "description": "tera-proxy module to notify enrage information of bosses",
+  "disableAutoUpdate": false,
+  "donationUrl": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7QQJZV9L5P2J&source=url",
+  "name": "msg-enrage",
+  "options": {
+    "reloadable": true
+  },
+  "servers": [
+    "https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/"
+  ],
+  "supportUrl": "https://github.com/seraphinush-gaming/msg-enrage/blob/master/README.md",
+  "version": "1.16.02"
 }
