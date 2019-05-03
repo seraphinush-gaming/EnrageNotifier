@@ -1,12 +1,12 @@
 {
 	"files": {
-		"README.md": "2d9becb6a5c76a7f5ef9a03d6a7fae46a2b3ec941fdbe624b2e097d0e7f63ad5",
+		"README.md": "e2f1b95949b80d08b53de9a221778336e7b1f2d99121791a75ce5da15f4730e5",
 		"config.json": {
 			"overwrite": false,
 			"hash": "e96c8a96438ac3649bb3e1fd29e52053644d5393f7010bd83040c72a0f2349ff"
 		},
-		"index.js": "37adb494bf6a3155b689212e9b8feb69c5461e6050950c62cc47b457b633db3e",
-		"module.json": "a91f511a405d3392329a233e3e44ced65ec7dfba7f6f7f75058fb746098583df"
+		"index.js": "d56a286f0e660a573e2b66fa8313d76c386047f46f11d655e5a21a008fbf4b58",
+		"module.json": "79476a629e10863a4caffd5e9769e3437aabe7aa815b87a3e8ac5f4056fcc6f5"
 	},
 	"defs": {
 		"S_BOSS_GAGE_INFO": 3,

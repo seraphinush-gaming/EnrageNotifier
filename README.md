@@ -1,11 +1,17 @@
+<p align="center">
+<a href="#">
+<img src="https://github.com/seraphinush-gaming/pastebin/blob/master/logo_ttb_trans.png?raw=true" width="200" height="200" alt="tera-toolbox, logo by Foglio" />
+</a>
+</p>
+
 # msg-enrage [![paypal](https://img.shields.io/badge/paypal-donate-333333.svg?colorA=253B80&colorB=333333)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B7QQJZV9L5P2J&source=url) [![paypal.me](https://img.shields.io/badge/paypal.me-donate-333333.svg?colorA=169BD7&colorB=333333)](https://www.paypal.me/seraphinush)
-tera-proxy module to notify enrage information of bosses
+tera-toolbox module to notify enrage information of bosses
 ```
 Support seraph via paypal donations, thanks in advance !
 ```
 
 ## Auto-update guide
-- Create a folder called `msg-enrage` in `tera-proxy/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) << (right-click this link and save link as..) into the folder
+- Create a folder called `msg-enrage` in `tera-toolbox/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) << (right-click this link and save link as..) into the folder
 
 ## Usage
 - __`enrage`__

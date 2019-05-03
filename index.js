@@ -48,43 +48,40 @@ module.exports = function MsgEnrage(mod) {
 
   // code
   mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
-    if (!enable || inHh) {
-      return;
+    if (enable && !inHh) {
+      boss.add(e.id.toString());
+      hpPer = Math.floor(Number(e.curHp * BigInt(10000) / e.maxHp) / 100);
+      nextEnrage = (hpPer > nextEnragePer) ? (hpPer - nextEnragePer) : 0;
     }
-    boss.add(e.id.toString());
-    hpPer = Math.floor(Number(e.curHp * BigInt(10000) / e.maxHp) / 100);
-    nextEnrage = (hpPer > nextEnragePer) ? (hpPer - nextEnragePer) : 0;
   });
 
   mod.hook('S_NPC_STATUS', 2, (e) => {
-    if (!enable || inHh || !boss.has(e.gameId.toString())) {
-      return;
-    }
-    if (e.enraged && !enraged) {
-      enraged = true;
-      enrageDuration = e.remainingEnrageTime - 10000;
-      enrageDuration = (enrageDuration < 0) ? 0 : enrageDuration;
-      toChat(`Boss enraged`);
-      timeout = setTimeout(timeRemaining, enrageDuration);
-    } else if (!e.enraged && enraged) {
-      if (hpPer === 100) {
-        return;
+    if (enable && !inHh && boss.has(e.gameId.toString())) {
+      if (e.enraged && !enraged) {
+        enraged = true;
+        enrageDuration = e.remainingEnrageTime - 10000;
+        enrageDuration = (enrageDuration < 0) ? 0 : enrageDuration;
+        toChat(`Boss enraged`);
+        timeout = setTimeout(timeRemaining, enrageDuration);
+      } else if (!e.enraged && enraged) {
+        if (hpPer === 100) {
+          return;
+        }
+        enraged = false;
+        send(`Next enrage at ` + `${nextEnrage.toString()}` + `%.`);
+        clearTimer();
       }
-      enraged = false;
-      send(`Next enrage at ` + `${nextEnrage.toString()}` + `%.`);
-      clearTimer();
     }
   });
 
   mod.hook('S_DESPAWN_NPC', 3, (e) => {
-    if (!enable || inHh) {
-      return;
-    }
-    if (boss.has(e.gameId.toString())) {
-      boss.delete(e.gameId.toString());
-      clearTimer();
-      enraged = false;
-      hpPer = 0;
+    if (enable && !inHh) {
+      if (boss.has(e.gameId.toString())) {
+        boss.delete(e.gameId.toString());
+        clearTimer();
+        enraged = false;
+        hpPer = 0;
+      }
     }
   });
 
