@@ -1,13 +1,11 @@
 'use strict';
 
-const config = require('./config.json');
+const HARROWHOLD = 9950;
 
 module.exports = function MsgEnrage(mod) {
   const cmd = mod.command;
 
-  // config
-  let enable = config.enable;
-  let notice = config.notice;
+  let settings = mod.settings;
 
   let boss = new Set();
   let enraged = false;
@@ -23,15 +21,18 @@ module.exports = function MsgEnrage(mod) {
   cmd.add('enrage', {
     // toggle
     '$none': () => {
-      enable = !enable;
-      send(`${enable ? 'En' : 'Dis'}abled`);
+      settings.enable = !settings.enable;
+      send(`${settings.enable ? 'En' : 'Dis'}abled`);
     },
     'notice': () => {
-      notice = !notice;
-      send(`Notice to screen ${notice ? 'en' : 'dis'}abled`);
+      settings.notice = !settings.notice;
+      send(`Notice to screen ${settings.notice ? 'en' : 'dis'}abled`);
     },
     'status': () => {
-      status();
+      send(
+        `Enrage message : ${settings.enable ? 'En' : 'Dis'}abled`,
+        `Notice to screen : ${settings.notice ? 'En' : 'Dis'}abled`
+      );
     },
     '$default': () => {
       send(`Invalid argument. usage : enrage [notice|status]`);
@@ -40,15 +41,15 @@ module.exports = function MsgEnrage(mod) {
 
   // game state
   mod.hook('S_LOAD_TOPO', 3, { order: -10 }, (e) => {
-    inHh = e.zone === 9950;
-    if (timeout !== 0 || timeoutCounter !== 0) {
+    inHh = e.zone === HARROWHOLD;
+    if (timeout || timeoutCounter) {
       clearTimer();
     }
   });
 
   // code
   mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
-    if (enable && !inHh) {
+    if (settings.enable && !inHh) {
       boss.add(e.id.toString());
       hpPer = Math.floor(Number(e.curHp * BigInt(10000) / e.maxHp) / 100);
       nextEnrage = (hpPer > nextEnragePer) ? (hpPer - nextEnragePer) : 0;
@@ -56,13 +57,13 @@ module.exports = function MsgEnrage(mod) {
   });
 
   mod.hook('S_NPC_STATUS', 2, (e) => {
-    if (enable && !inHh && boss.has(e.gameId.toString())) {
+    if (settings.enable && !inHh && boss.has(e.gameId.toString())) {
       if (e.enraged && !enraged) {
         enraged = true;
         enrageDuration = e.remainingEnrageTime - 10000;
         enrageDuration = (enrageDuration < 0) ? 0 : enrageDuration;
         toChat(`Boss enraged`);
-        timeout = setTimeout(timeRemaining, enrageDuration);
+        timeout = mod.setTimeout(timeRemaining, enrageDuration);
       } else if (!e.enraged && enraged) {
         if (hpPer === 100) {
           return;
@@ -75,7 +76,7 @@ module.exports = function MsgEnrage(mod) {
   });
 
   mod.hook('S_DESPAWN_NPC', 3, (e) => {
-    if (enable && !inHh) {
+    if (settings.enable && !inHh) {
       if (boss.has(e.gameId.toString())) {
         boss.delete(e.gameId.toString());
         clearTimer();
@@ -88,14 +89,14 @@ module.exports = function MsgEnrage(mod) {
   // helper
   function clearTimer() {
     clearTimeout(timeout);
-    clearTimeout(timeoutCounter);
+    clearInterval(timeoutCounter);
     timeout = null;
     timeoutCounter = null;
   }
 
   function timeRemaining() {
     let i = 9;
-    timeoutCounter = setInterval(() => {
+    timeoutCounter = mod.setInterval(() => {
       if (enraged && i > 0) {
         send(`Seconds remaining : ${i}`);
         i--;
@@ -107,7 +108,7 @@ module.exports = function MsgEnrage(mod) {
   }
 
   function toChat(msg) {
-    if (notice) {
+    if (settings.notice) {
       mod.send('S_DUNGEON_EVENT_MESSAGE', 2, {
         type: 31, // 42 blue shiny text, 31 normal Text
         chat: false,
@@ -119,20 +120,11 @@ module.exports = function MsgEnrage(mod) {
     }
   }
 
-  function status() {
-    send(
-      `Enrage message : ${enable ? 'En' : 'Dis'}abled`,
-      `Notice to screen : ${notice ? 'En' : 'Dis'}abled`
-    );
-  }
-
-  function send(msg) { cmd.message(': ' + [...arguments].join('\n\t - ')); }
+  function send() { cmd.message(': ' + [...arguments].join('\n\t - ')); }
 
   // reload
   this.saveState = () => {
     let state = {
-      enable: enable,
-      notice: notice,
       boss: boss,
       enrageDuration: enrageDuration,
       inHh: inHh,
@@ -142,8 +134,6 @@ module.exports = function MsgEnrage(mod) {
   }
 
   this.loadState = (state) => {
-    enable = state.enable;
-    enable = state.notice;
     boss = state.boss;
     enrageDuration = state.enrageDuration;
     inHh = state.inHh;
@@ -152,6 +142,7 @@ module.exports = function MsgEnrage(mod) {
 
   this.destructor = () => {
     clearTimer();
+
     cmd.remove('enrage');
   }
 

@@ -22,20 +22,14 @@ Support seraph via paypal donations, thanks in advance !
 - __`status`__
   - Send module status
 
-## Config
-- __`enable`__
-  - Initialize module on/off
-  - Default is `true`
-- __`notice`__
-  - Initialize notice to screen option on/off
-  - Default is `false`
-
 ## Info
 - Original author : [TeraProxy](https://github.com/TeraProxy)
 
 ## Changelog
 <details>
 
+    1.17
+    - Added settings-migrator support
     1.16
     - Removed `tera-game-state` usage
     1.15
