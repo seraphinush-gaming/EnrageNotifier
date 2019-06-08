@@ -88,8 +88,8 @@ module.exports = function MsgEnrage(mod) {
 
   // helper
   function clearTimer() {
-    clearTimeout(timeout);
-    clearInterval(timeoutCounter);
+    mod.clearTimeout(timeout);
+    mod.clearInterval(timeoutCounter);
     timeout = null;
     timeoutCounter = null;
   }
@@ -101,7 +101,7 @@ module.exports = function MsgEnrage(mod) {
         send(`Seconds remaining : ${i}`);
         i--;
       } else {
-        clearInterval(timeoutCounter);
+        mod.clearInterval(timeoutCounter);
         timeoutCounter = null;
       }
     }, 990);
