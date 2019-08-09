@@ -40,12 +40,19 @@ module.exports = function MsgEnrage(mod) {
   });
 
   // game state
-  mod.hook('S_LOAD_TOPO', 3, { order: -10 }, (e) => {
-    inHh = e.zone === HARROWHOLD;
+  mod.game.me.on('change_zone', (zone) => {
+    inHh = zone === HARROWHOLD;
     if (timeout || timeoutCounter) {
       clearTimer();
     }
   });
+
+  /* mod.hook('S_LOAD_TOPO', 3, { order: -10 }, (e) => {
+    inHh = e.zone === HARROWHOLD;
+    if (timeout || timeoutCounter) {
+      clearTimer();
+    }
+  }); */
 
   // code
   mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
@@ -104,7 +111,7 @@ module.exports = function MsgEnrage(mod) {
         mod.clearInterval(timeoutCounter);
         timeoutCounter = null;
       }
-    }, 990);
+    }, 995);
   }
 
   function toChat(msg) {

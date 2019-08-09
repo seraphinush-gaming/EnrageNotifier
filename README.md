@@ -28,6 +28,8 @@ Support seraph via paypal donations, thanks in advance !
 ## Changelog
 <details>
 
+    1.18
+    - Reinstated `tera-game-state`
     1.17
     - Added settings-migrator support
     1.16
