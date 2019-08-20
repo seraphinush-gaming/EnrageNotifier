@@ -30,8 +30,8 @@ module.exports = function MsgEnrage(mod) {
     },
     'status': () => {
       send(
-        `Enrage message : ${settings.enable ? 'En' : 'Dis'}abled`,
-        `Notice to screen : ${settings.notice ? 'En' : 'Dis'}abled`
+        `Enrage message : ${settings.enable}`,
+        `Notice to screen : ${settings.notice}`
       );
     },
     '$default': () => {
@@ -46,13 +46,6 @@ module.exports = function MsgEnrage(mod) {
       clearTimer();
     }
   });
-
-  /* mod.hook('S_LOAD_TOPO', 3, { order: -10 }, (e) => {
-    inHh = e.zone === HARROWHOLD;
-    if (timeout || timeoutCounter) {
-      clearTimer();
-    }
-  }); */
 
   // code
   mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
@@ -149,7 +142,6 @@ module.exports = function MsgEnrage(mod) {
 
   this.destructor = () => {
     clearTimer();
-
     cmd.remove('enrage');
   }
 
