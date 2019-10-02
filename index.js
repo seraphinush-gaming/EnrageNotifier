@@ -3,9 +3,9 @@
 const HARROWHOLD = 9950;
 
 module.exports = function MsgEnrage(mod) {
-  const cmd = mod.command;
 
-  let settings = mod.settings;
+  const cmd = mod.command;
+  const settings = mod.settings;
 
   let boss = new Set();
   let enraged = false;
@@ -46,6 +46,12 @@ module.exports = function MsgEnrage(mod) {
       clearTimer();
     }
   });
+
+  // destructor
+  this.destructor = () => {
+    clearTimer();
+    cmd.remove('enrage');
+  }
 
   // code
   mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
@@ -138,11 +144,6 @@ module.exports = function MsgEnrage(mod) {
     enrageDuration = state.enrageDuration;
     inHh = state.inHh;
     nextEnragePer = state.nextEnragePer;
-  }
-
-  this.destructor = () => {
-    clearTimer();
-    cmd.remove('enrage');
   }
 
 }
