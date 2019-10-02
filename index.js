@@ -5,7 +5,7 @@ const HARROWHOLD = 9950;
 module.exports = function MsgEnrage(mod) {
 
   const cmd = mod.command;
-  const settings = mod.settings;
+  let settings = mod.settings;
 
   let boss = new Set();
   let enraged = false;
