@@ -42,9 +42,8 @@ module.exports = function MsgEnrage(mod) {
   // game state
   mod.game.me.on('change_zone', (zone) => {
     inHh = zone === HARROWHOLD;
-    if (timeout || timeoutCounter) {
+    if (timeout || timeoutCounter)
       clearTimer();
-    }
   });
 
   // destructor
@@ -71,9 +70,8 @@ module.exports = function MsgEnrage(mod) {
         toChat(`Boss enraged`);
         timeout = mod.setTimeout(timeRemaining, enrageDuration);
       } else if (!e.enraged && enraged) {
-        if (hpPer === 100) {
+        if (hpPer === 100)
           return;
-        }
         enraged = false;
         send(`Next enrage at ` + `${nextEnrage.toString()}` + `%.`);
         clearTimer();
