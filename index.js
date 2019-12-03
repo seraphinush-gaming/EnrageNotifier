@@ -24,6 +24,10 @@ module.exports = function MsgEnrage(mod) {
       settings.enable = !settings.enable;
       send(`${settings.enable ? 'En' : 'Dis'}abled`);
     },
+    'countdown': () => {
+      settings.countdown = !settings.countdown;
+      send(`Countdown last few seconds ${settings.countdown ? 'en' : 'dis'}abled`);
+    },
     'notice': () => {
       settings.notice = !settings.notice;
       send(`Notice to screen ${settings.notice ? 'en' : 'dis'}abled`);
@@ -31,6 +35,7 @@ module.exports = function MsgEnrage(mod) {
     'status': () => {
       send(
         `Enrage message : ${settings.enable}`,
+        `Countdown : ${settings.countdown}`
         `Notice to screen : ${settings.notice}`
       );
     },
@@ -68,7 +73,7 @@ module.exports = function MsgEnrage(mod) {
         enrageDuration = e.remainingEnrageTime - 10000;
         enrageDuration = (enrageDuration < 0) ? 0 : enrageDuration;
         toChat(`Boss enraged`);
-        timeout = mod.setTimeout(timeRemaining, enrageDuration);
+        settings.countdown ? timeout = mod.setTimeout(timeRemaining, enrageDuration) : null;
       } else if (!e.enraged && enraged) {
         if (hpPer === 100)
           return;
@@ -99,7 +104,7 @@ module.exports = function MsgEnrage(mod) {
   }
 
   function timeRemaining() {
-    let i = 9;
+    let i = 7;
     timeoutCounter = mod.setInterval(() => {
       if (enraged && i > 0) {
         send(`Seconds remaining : ${i}`);

@@ -1,9 +1,9 @@
 {
 	"files": {
-		"README.md": "7b6c7a6f3e18ddabdbc26a958a32d6120b57d0d77d1f03790d48a582b9ccb926",
-		"index.js": "646150fb37259a1edb56c8cfac28828969660c3330b29fad3922b73dda34cf41",
-		"module.json": "a3552c2c956746a0313b388a8d2fa5751a6f405cbdc2bba708abde209238b2a2",
-		"settings.js": "f883c507cb7b80fa17e6c2dac84811a4abe6ccc2161dfa73c3e886ad2c616e61"
+		"README.md": "a5b1b8ceda9a4781c804e3cc5bccd387b36fefe5486d8063421cfac7a7adc959",
+		"index.js": "97786686d685c6f13ac46d62e5d186e2971084fcf9a542cbf5c3f0d701e88b7a",
+		"module.json": "7f6a9e277ac4a5f17779b854f6221b2b57713cd1d534559e1714a69ad7cc1542",
+		"settings.js": "c34b1f7c815dad7a28903af4ad7b6db99f2c468c01f55ab4534c3d915cf5b4af"
 	},
 	"defs": {
 		"S_BOSS_GAGE_INFO": 3,

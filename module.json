@@ -6,7 +6,7 @@
   "name": "msg-enrage",
   "options": {
     "reloadable": true,
-    "settingsVersion": 1,
+    "settingsVersion": 2,
     "settingsFile": "config.json",
     "settingsMigrator": "settings.js"
   },
@@ -14,5 +14,5 @@
     "https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/"
   ],
   "supportUrl": "https://github.com/seraphinush-gaming/msg-enrage/blob/master/README.md",
-  "version": "1.18.05"
+  "version": "1.19.00"
 }

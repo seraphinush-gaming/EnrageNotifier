@@ -2,6 +2,7 @@
 
 const DefaultSettings = {
   "enable": true,
+  "countdown": true,
   "notice": false
 };
 
@@ -17,7 +18,8 @@ function MigrateSettings(from_ver, to_ver, settings) {
     }
   
     switch (to_ver) {
-      //
+      case 2:
+        settings.countdown = true;
     }
 
     return settings;

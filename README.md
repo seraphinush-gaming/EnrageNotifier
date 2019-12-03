@@ -17,6 +17,8 @@ Support seraph via paypal donations, thanks in advance !
 - __`enrage`__
   - Toggle on/off
 ### Arguments
+- __`countdown`__
+  - Toggle countdown on/off
 - __`notice`__
   - Toggle notice to screen on/off
 - __`status`__
@@ -28,6 +30,8 @@ Support seraph via paypal donations, thanks in advance !
 ## Changelog
 <details>
 
+    1.19
+    - Added `countdown` option
     1.18
     - Reinstated `tera-game-state`
     1.17
