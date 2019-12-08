@@ -1,5 +1,6 @@
 'use strict';
 
+const COUNTDOWN = 7;
 const HARROWHOLD = 9950;
 
 module.exports = function MsgEnrage(mod) {
@@ -70,7 +71,7 @@ module.exports = function MsgEnrage(mod) {
     if (settings.enable && !inHh && boss.has(e.gameId.toString())) {
       if (e.enraged && !enraged) {
         enraged = true;
-        enrageDuration = e.remainingEnrageTime - 10000;
+        enrageDuration = e.remainingEnrageTime - (COUNTDOWN * 1000);
         enrageDuration = (enrageDuration < 0) ? 0 : enrageDuration;
         toChat(`Boss enraged`);
         settings.countdown ? timeout = mod.setTimeout(timeRemaining, enrageDuration) : null;
@@ -104,7 +105,7 @@ module.exports = function MsgEnrage(mod) {
   }
 
   function timeRemaining() {
-    let i = 7;
+    let i = COUNTDOWN;
     timeoutCounter = mod.setInterval(() => {
       if (enraged && i > 0) {
         send(`Seconds remaining : ${i}`);
