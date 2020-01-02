@@ -130,7 +130,7 @@ module.exports = function MsgEnrage(mod) {
     }
   }
 
-  function send() { cmd.message(': ' + [...arguments].join('\n\t - ')); }
+  function send() { cmd.message(': ' + [...arguments].join('\n - ')); }
 
   // reload
   this.saveState = () => {
