@@ -1,14 +1,8 @@
 {
-	"files": {
-		"README.md": "a5b1b8ceda9a4781c804e3cc5bccd387b36fefe5486d8063421cfac7a7adc959",
-		"index.js": "5c81da77e763123eb37dd4d1ec46b0d2cb9125e335ad587046d5932b1667a2d1",
-		"module.json": "1be19296f3f9b599dc402694e89ed5ec883d1f7e70f419fcad2c33c6648864b6",
-		"settings.js": "c34b1f7c815dad7a28903af4ad7b6db99f2c468c01f55ab4534c3d915cf5b4af"
-	},
-	"defs": {
-		"S_BOSS_GAGE_INFO": 3,
-		"S_DESPAWN_NPC": 3,
-		"S_DUNGEON_EVENT_MESSAGE": 2,
-		"S_NPC_STATUS": 2
-	}
+  "files": {
+    "README.md": "a5b1b8ceda9a4781c804e3cc5bccd387b36fefe5486d8063421cfac7a7adc959",
+    "index.js": "5c81da77e763123eb37dd4d1ec46b0d2cb9125e335ad587046d5932b1667a2d1",
+    "module.json": "5e266dcb49c991f131a913ae965758e678c6e25fdb4f96e0836f0f78acbb21ef",
+    "settings.js": "c34b1f7c815dad7a28903af4ad7b6db99f2c468c01f55ab4534c3d915cf5b4af"
+  }
 }
