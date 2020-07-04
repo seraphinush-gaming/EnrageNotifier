@@ -36,12 +36,12 @@ module.exports = function MsgEnrage(mod) {
     'status': () => {
       send(
         `Enrage message : ${settings.enable}`,
-        `Countdown : ${settings.countdown}`
+        `Countdown : ${settings.countdown}`,
         `Notice to screen : ${settings.notice}`
       );
     },
     '$default': () => {
-      send(`Invalid argument. usage : enrage [notice|status]`);
+      send(`Invalid argument. usage : enrage [countdown|notice|status]`);
     }
   });
 
@@ -130,7 +130,7 @@ module.exports = function MsgEnrage(mod) {
     }
   }
 
-  function send() { cmd.message(': ' + [...arguments].join('\n - ')); }
+  function send(msg) { cmd.message(': ' + msg); }
 
   // reload
   this.saveState = () => {
