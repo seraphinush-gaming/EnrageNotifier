@@ -1,16 +1,16 @@
 {
-  "author": "seraphinush",
-  "description": "tera-toolbox to automatically feed summoned Partner",
+  "author": "seraphinush . TeraProxy",
+  "description": "tera-toolbox module to notify enrage information of bosses",
   "disableAutoUpdate": false,
   "donationUrl": "https://www.paypal.me/seraphinush",
-  "name": "auto-feed-partner",
+  "name": "msg-enrage",
   "options": {
     "reloadable": true,
-    "settingsVersion": 4,
+    "settingsVersion": 2,
     "settingsFile": "config.json",
     "settingsMigrator": "settings.js"
   },
-  "servers": ["https://raw.githubusercontent.com/seraphinush-gaming/auto-feed-partner/master/"],
-  "supportUrl": "https://github.com/seraphinush-gaming/auto-feed-partner/blob/master/README.md",
-  "version": "2.00.03.v95.05"
+  "servers": ["https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/"],
+  "supportUrl": "https://github.com/seraphinush-gaming/msg-enrage/blob/master/README.md",
+  "version": "1.19.08.v95.05"
 }
