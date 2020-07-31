@@ -1,153 +1,59 @@
 'use strict';
 
-const COUNTDOWN = 7;
-const HARROWHOLD = 9950;
+const PUPPY_FIGURINE = 206049;
 
-module.exports = function MsgEnrage(mod) {
+class auto_feed_partner {
 
-  const cmd = mod.command;
-  let settings = mod.settings;
+  constructor (mod) {
 
-  let boss = new Set();
-  let enraged = false;
-  let enrageDuration = 0;
-  let hpPer = 0;
-  let inHh = false;
-  let nextEnrage = 0;
-  let nextEnragePer = 10;
-  let timeout = null;
-  let timeoutCounter = null;
+    this.mod = mod;
+    this.command = mod.command;
+    this.hook = null;
 
-  // command
-  cmd.add('enrage', {
-    // toggle
-    '$none': () => {
-      settings.enable = !settings.enable;
-      send(`${settings.enable ? 'En' : 'Dis'}abled`);
-    },
-    'countdown': () => {
-      settings.countdown = !settings.countdown;
-      send(`Countdown last few seconds ${settings.countdown ? 'en' : 'dis'}abled`);
-    },
-    'notice': () => {
-      settings.notice = !settings.notice;
-      send(`Notice to screen ${settings.notice ? 'en' : 'dis'}abled`);
-    },
-    'status': () => {
-      send(
-        `Enrage message : ${settings.enable}`,
-        `Countdown : ${settings.countdown}`,
-        `Notice to screen : ${settings.notice}`
-      );
-    },
-    '$default': () => {
-      send(`Invalid argument. usage : enrage [countdown|notice|status]`);
-    }
-  });
+    // command
+    mod.command.add('pet', {
+      '$none': () => {
+        mod.settings.enable = !mod.settings.enable;
+        mod.settings.enable ? this.load() : this.unload();
+        this.send(`${mod.settings.enable ? 'En' : 'Dis'}abled`); 
+      },
+    });
 
-  // game state
-  mod.game.me.on('change_zone', (zone) => {
-    inHh = zone === HARROWHOLD;
-    if (timeout || timeoutCounter)
-      clearTimer();
-  });
+    mod.settings.enable ? this.load() : null;
 
-  // destructor
-  this.destructor = () => {
-    clearTimer();
-    cmd.remove('enrage');
+  }
+
+  destructor() {
+    this.unload();
+    this.command.remove('pet');
+  }
+
+  use_item(itemId) {
+    this.mod.send('C_USE_ITEM', 3, {
+      gameId: this.mod.game.me.gameId,
+      id: itemId,
+      amount: 1,
+      unk4: true
+    });
+    this.send(`Attempted to feed Companion.`);
   }
 
   // code
-  mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
-    if (settings.enable && !inHh) {
-      boss.add(e.id.toString());
-      hpPer = Math.floor(Number(e.curHp * BigInt(10000) / e.maxHp) / 100);
-      nextEnrage = (hpPer > nextEnragePer) ? (hpPer - nextEnragePer) : 0;
-    }
-  });
-
-  mod.hook('S_NPC_STATUS', 2, (e) => {
-    if (settings.enable && !inHh && boss.has(e.gameId.toString())) {
-      if (e.enraged && !enraged) {
-        enraged = true;
-        enrageDuration = e.remainingEnrageTime - (COUNTDOWN * 1000);
-        enrageDuration = (enrageDuration < 0) ? 0 : enrageDuration;
-        toChat(`Boss enraged`);
-        settings.countdown ? timeout = mod.setTimeout(timeRemaining, enrageDuration) : null;
-      } else if (!e.enraged && enraged) {
-        if (hpPer === 100)
-          return;
-        enraged = false;
-        send(`Next enrage at ` + `${nextEnrage.toString()}` + `%.`);
-        clearTimer();
+  load() {
+    this.hook = this.mod.hook('S_REQUEST_SPAWN_SERVANT', 4, (e) => {
+      if (e.ownerId === this.mod.game.me.gameId) {
+        (e.energyMax - e.energy) > 35 ? this.use_item(PUPPY_FIGURINE) : null;
       }
-    }
-  });
-
-  mod.hook('S_DESPAWN_NPC', 3, (e) => {
-    if (settings.enable && !inHh) {
-      if (boss.has(e.gameId.toString())) {
-        boss.delete(e.gameId.toString());
-        clearTimer();
-        enraged = false;
-        hpPer = 0;
-      }
-    }
-  });
-
-  // helper
-  function clearTimer() {
-    mod.clearTimeout(timeout);
-    mod.clearInterval(timeoutCounter);
-    timeout = null;
-    timeoutCounter = null;
+    });
   }
 
-  function timeRemaining() {
-    let i = COUNTDOWN;
-    timeoutCounter = mod.setInterval(() => {
-      if (enraged && i > 0) {
-        send(`Seconds remaining : ${i}`);
-        i--;
-      } else {
-        mod.clearInterval(timeoutCounter);
-        timeoutCounter = null;
-      }
-    }, 995);
+  unload() {
+    this.mod.unhook(this.hook);
+    this.hook = null;
   }
 
-  function toChat(msg) {
-    if (settings.notice) {
-      mod.send('S_DUNGEON_EVENT_MESSAGE', 2, {
-        type: 31, // 42 blue shiny text, 31 normal Text
-        chat: false,
-        channel: 27,
-        message: msg
-      });
-    } else {
-      send(msg);
-    }
-  }
-
-  function send(msg) { cmd.message(': ' + msg); }
-
-  // reload
-  this.saveState = () => {
-    let state = {
-      boss: boss,
-      enrageDuration: enrageDuration,
-      inHh: inHh,
-      nextEnragePer: nextEnragePer
-    };
-    return state;
-  }
-
-  this.loadState = (state) => {
-    boss = state.boss;
-    enrageDuration = state.enrageDuration;
-    inHh = state.inHh;
-    nextEnragePer = state.nextEnragePer;
-  }
+  send(msg) { this.command.message(': ' + msg); }
 
 }
+
+module.exports = { NetworkMod: auto_feed_partner };

@@ -4,60 +4,38 @@
 </a>
 </p>
 
-# msg-enrage [paypal.me](https://img.shields.io/badge/paypal.me-donate-333333.svg?colorA=253B80&colorB=333333)](https://www.paypal.me/seraphinush)
-tera-toolbox module to notify enrage information of bosses
 ```
 Support seraph via paypal donations, thanks in advance !
 ```
 
+# auto-feed-partner [![](https://img.shields.io/badge/paypal-donate-333333.svg?colorA=0070BA&colorB=333333)](https://www.paypal.me/seraphinush)
+tera-toolbox module to automatically feed summoned Partner
+
 ## Auto-update guide
-- Create a folder called `msg-enrage` in `tera-toolbox/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) << (right-click this link and save link as..) into the folder
+- Create a folder called `auto-feed-partner` in `tera-toolbox/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/auto-feed-partner/master/module.json) << (right-click this link and save link as..) into the folder
 
 ## Usage
-- __`enrage`__
+- __pet__
   - Toggle on/off
-### Arguments
-- __`countdown`__
-  - Toggle countdown on/off
-- __`notice`__
-  - Toggle notice to screen on/off
-- __`status`__
-  - Send module status
 
 ## Info
-- Original author : [TeraProxy](https://github.com/TeraProxy)
+- Set to use Puppy Figurine only
 
 ## Changelog
 <details>
 
-    1.19
-    - Added `countdown` option
-    1.18
-    - Reinstated `tera-game-state`
-    1.17
-    - Added settings-migrator support
-    1.16
-    - Removed `tera-game-state` usage
-    1.15
-    - Added hot-reload support
-    1.14
-    - Updated for caali-proxy-nextgen
-    1.13
-    - Removed `Command` require()
-    - Removed `tera-game-state` require()
-    - Updated to `mod.command`
-    - Updated to `mod.game`
-    1.12
-    - Removed font color bloat
-    - Added `tera-game-state` dependency
-    1.11
-    - Added auto-update support
-    - Refactored config file
-    -- Added `enable`
-    -- Added `notice`
-    1.10
-    - Personalized code aesthetics
+    2.00
+    - Removed spawning partner option
+    - Removed `set` option
+    1.03
+    - Removed `fishing` option
+    1.02
+    - Added respawn feature upon changing zone after fishing
+    - Added dynamic definition load
+    1.01
+    - Incorporated `tera-game-state`
+    - Added mount check
     1.00
-    - Initial fork
+    - Initial commit
 
 </details>
