@@ -1,8 +1,14 @@
 {
-  "files": {
-    "README.md": "7ed805d42d3560a2c70d682d75913f0e9fc475452b220e7f74c8ea9c458dbaf9",
-    "index.js": "6372a73e172acaa9cc2dd353529e40a8e01489aabf94eae705bd66d688d449cf",
-    "module.json": "77714f492405d1d9980856fa604b16ce2d559cd67d0db94b58cb1a96be9a7222",
-    "settings.js": "c34b1f7c815dad7a28903af4ad7b6db99f2c468c01f55ab4534c3d915cf5b4af"
-  }
+	"files": {
+		"README.md": "7ed805d42d3560a2c70d682d75913f0e9fc475452b220e7f74c8ea9c458dbaf9",
+		"index.js": "9ad24b15bb6ea9bf7225ac847150a01346508e7aca396979f5112d8b00b752bc",
+		"module.json": "8eb40ae86bf093a910678dd9a2f9dc13b1aa5f8e0a6156281626b95e412a03f9",
+		"settings.js": "c34b1f7c815dad7a28903af4ad7b6db99f2c468c01f55ab4534c3d915cf5b4af"
+	},
+	"defs": {
+		"S_BOSS_GAGE_INFO": 3,
+		"S_DESPAWN_NPC": 3,
+		"S_DUNGEON_EVENT_MESSAGE": 2,
+		"S_NPC_STATUS": 2
+	}
 }

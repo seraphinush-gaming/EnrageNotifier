@@ -14,7 +14,6 @@ module.exports.NetworkMod = function MsgEnrage(mod) {
   let hpPer = 0;
   let inHh = false;
   let nextEnrage = 0;
-  let nextEnragePer = 10;
   let timeout = null;
   let timeoutCounter = null;
 
@@ -62,8 +61,8 @@ module.exports.NetworkMod = function MsgEnrage(mod) {
   mod.hook('S_BOSS_GAGE_INFO', 3, (e) => {
     if (settings.enable && !inHh) {
       boss.add(e.id.toString());
-      hpPer = Math.floor(Number(e.curHp * BigInt(10000) / e.maxHp) / 100);
-      nextEnrage = (hpPer > nextEnragePer) ? (hpPer - nextEnragePer) : 0;
+      hpPer = Number(e.curHp * BigInt(10000) / e.maxHp) / 100;
+      nextEnrage = (hpPer > 10) ? (hpPer - 10) : 0;
     }
   });
 
@@ -79,7 +78,7 @@ module.exports.NetworkMod = function MsgEnrage(mod) {
         if (hpPer === 100)
           return;
         enraged = false;
-        send(`Next enrage at ` + `${nextEnrage.toString()}` + `%.`);
+        send(`Next enrage at ` + `${nextEnrage.toFixed(2)}` + `%.`);
         clearTimer();
       }
     }
@@ -137,8 +136,7 @@ module.exports.NetworkMod = function MsgEnrage(mod) {
     let state = {
       boss: boss,
       enrageDuration: enrageDuration,
-      inHh: inHh,
-      nextEnragePer: nextEnragePer
+      inHh: inHh
     };
     return state;
   }
@@ -147,7 +145,6 @@ module.exports.NetworkMod = function MsgEnrage(mod) {
     boss = state.boss;
     enrageDuration = state.enrageDuration;
     inHh = state.inHh;
-    nextEnragePer = state.nextEnragePer;
   }
 
 }

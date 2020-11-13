@@ -1,7 +1,7 @@
 {
   "author": "seraphinush . TeraProxy",
   "description": "tera-toolbox module to notify enrage information of bosses",
-  "disableAutoUpdate": false,
+  "disableAutoUpdate": true,
   "donationUrl": "https://www.paypal.me/seraphinush",
   "name": "msg-enrage",
   "options": {
@@ -12,5 +12,5 @@
   },
   "servers": ["https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/"],
   "supportUrl": "https://github.com/seraphinush-gaming/msg-enrage/blob/master/README.md",
-  "version": "1.19.08.v97.03"
+  "version": "1.19.09.v99.02"
 }
