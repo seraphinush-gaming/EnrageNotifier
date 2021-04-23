@@ -1,5 +1,5 @@
 ```
-Support seraph via paypal donations, thanks in advance !
+Support seraph via donations, thanks in advance !
 ```
 
 # msg-enrage [![](https://img.shields.io/badge/paypal-donate-333333.svg?colorA=0070BA&colorB=333333)](https://www.paypal.me/seraphinush) [![](https://img.shields.io/badge/patreon-pledge-333333.svg?colorA=F96854&colorB=333333)](https://www.patreon.com/seraphinush)
@@ -9,14 +9,14 @@ tera-toolbox module to notify enrage information of bosses
 - Create a folder called `msg-enrage` in `tera-toolbox/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) << (right-click this link and save link as..) into the folder
 
 ## Usage
-- __`enrage`__
+- `enrage`
   - Toggle on/off
 ### Arguments
-- __`countdown`__
+- `countdown`
   - Toggle countdown on/off
-- __`notice`__
+- `notice`
   - Toggle notice to screen on/off
-- __`status`__
+- `status`
   - Send module status
 
 ## Info
