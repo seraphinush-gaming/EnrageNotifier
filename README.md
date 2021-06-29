@@ -6,18 +6,19 @@ Support seraph via donations, thanks in advance !
 tera-toolbox module to notify enrage information of bosses
 
 ## Auto-update guide
-- Create a folder called `msg-enrage` in `tera-toolbox/mods` and download >> [`module.json`](https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/module.json) << (right-click this link and save link as..) into the folder
+- Create a folder called `msg-enrage` in `tera-toolbox/mods` and download >> [`module.json`](https://raw.githubusercontent.com/ylennia-archives/msg-enrage/master/module.json) << (right-click this link and save link as..) into the folder
 
 ## Usage
 - `enrage`
-  - Toggle on/off
+  - Toggle
+
 ### Arguments
 - `countdown`
-  - Toggle countdown on/off
+  - Toggle countdown
 - `notice`
-  - Toggle notice to screen on/off
+  - Toggle notice to screen
 - `status`
-  - Send module status
+  - Print settings
 
 ## Info
 - Original author : [TeraProxy](https://github.com/TeraProxy)

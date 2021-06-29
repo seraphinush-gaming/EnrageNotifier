@@ -11,7 +11,7 @@
     "settingsFile": "config.json",
     "settingsMigrator": "settings.js"
   },
-  "servers": ["https://raw.githubusercontent.com/seraphinush-gaming/msg-enrage/master/"],
-  "supportUrl": "https://github.com/seraphinush-gaming/msg-enrage/blob/master/README.md",
-  "version": "1.19.0e.v106.02"
+  "servers": ["https://raw.githubusercontent.com/ylennia-archives/msg-enrage/master/"],
+  "supportUrl": "https://github.com/ylennia-archives/msg-enrage/blob/master/README.md",
+  "version": "1.19.0f.v107.02"
 }

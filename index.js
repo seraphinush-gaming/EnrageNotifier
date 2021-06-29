@@ -34,9 +34,9 @@ module.exports.NetworkMod = function MsgEnrage(mod) {
     },
     'status': () => {
       send(
-        `Enrage message : ${settings.enable}`,
+        `Enrage message : ${settings.enable ? 'on' : 'off'}`,
         `Countdown : ${settings.countdown}`,
-        `Notice to screen : ${settings.notice}`
+        `Notice to screen : ${settings.notice ? 'on' : 'off'}`
       );
     },
     '$default': () => {
